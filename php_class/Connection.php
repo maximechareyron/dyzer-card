@@ -12,6 +12,8 @@ class Connection extends PDO
     public function __construct($dsn, $username, $password){
         parent::__construct($dsn, $username,$password);
         $this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        // Définition du codage en UTF8
+        parent::exec("SET CHARACTER SET utf8");
     }
 
     public function executeQuery($query, array $parameters=[])
