@@ -2,7 +2,7 @@
 
 namespace controleur;
 
-class Controleur {
+class CtrlVisiteur {
 
 	function __construct() {
 

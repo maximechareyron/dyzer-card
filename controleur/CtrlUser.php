@@ -2,17 +2,17 @@
 
 namespace controleur;
 
-class Controleur {
+class CtrlUser {
 
 	function __construct() {
 
-// on démarre ou reprend la session
+		// Démarrage (ou reprise) de la session
 		session_start();
 
 
-//debut
+// Début
 
-//on initialise un tableau d'erreur
+		// On initialise un tableau d'erreur :
 		$dVueEreur = array ();
 
 		try{
@@ -20,17 +20,16 @@ class Controleur {
 
 			switch($action) {
 
-//pas d'action, on réinitialise 1er appel
+				// Pas d'action, on réinitialise 1er appel
 				case NULL:
 				$this->Reinit();
 				break;
-
 
 				case "validationFormulaire":
 				$this->ValidationFormulaire();
 				break;
 
-//mauvaise action
+				// Mauvaise action
 				default:
 				$dVueEreur[] =	"Erreur d'appel php";
 				require ($rep.$vues['vuephp1']);
