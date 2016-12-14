@@ -12,7 +12,7 @@ class CtrlUser {
 		try{
 			$action=$_REQUEST['action'];
 
-			switch($action) {
+			switch($action){
 
 				// Pas d'action, on réinitialise 1er appel
 				case NULL:
@@ -21,6 +21,10 @@ class CtrlUser {
 
 				case 'ajoutCommentaire':
 					$this->ajouterCommentaire();
+					break;
+
+				case 'avisTitre':
+					$this->donnerAvis();
 					break;
 
 
