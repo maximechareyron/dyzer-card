@@ -9,8 +9,8 @@ require_once(__DIR__.'/config/config.php');
 
 //autoloader du cours
 //chargement autoloader pour autochargement des classes
-//require_once(__DIR__.'/config/Autoload.php');
-//Autoload::charger();
+require_once(__DIR__.'/config/Autoload.php');
+Autoload::charger();
 
 
 //autoloader conforme norme PSR-0
@@ -23,7 +23,7 @@ $myLibLoader = new SplClassLoader('modeles', './');
 $myLibLoader->register();
 
 
-$cont = new \controleur\Controleur();
+$controller = new \controleur\Controleur();
 
 
 ?> 
