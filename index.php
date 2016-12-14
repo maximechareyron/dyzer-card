@@ -1,29 +1,27 @@
 <?php
-//si controller pas objet
-//  header('Location: controller/controller.php');
-
-//si controller objet
-
 //chargement config
 require_once(__DIR__.'/config/config.php');
 
-//autoloader du cours
-//chargement autoloader pour autochargement des classes
+//Chargement de l'autoloader (le plus simple)
 require_once(__DIR__.'/config/Autoload.php');
 Autoload::charger();
 
 
-//autoloader conforme norme PSR-0
-require_once(__DIR__.'/config/SplClassLoader.php');
-$myLibLoader = new SplClassLoader('controleur', './');
-$myLibLoader->register();
-$myLibLoader = new SplClassLoader('config', './');
-$myLibLoader->register();
-$myLibLoader = new SplClassLoader('modeles', './');
-$myLibLoader->register();
+// autoloader conforme norme PSR-0
+// require_once(__DIR__.'/config/SplClassLoader.php');
+// $myLibLoader = new SplClassLoader('controleur', './');
+// $myLibLoader->register();
+// $myLibLoader = new SplClassLoader('config', './');
+// $myLibLoader->register();
+// $myLibLoader = new SplClassLoader('modeles', './');
+// $myLibLoader->register();
 
 
-$controller = new \controleur\Controleur();
+// Démarrage (ou reprise) de la session
+session_start();
+
+
+$controller = new \controleur\CtrlUser();
 
 
 ?> 

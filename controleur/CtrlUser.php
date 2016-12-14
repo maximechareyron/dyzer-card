@@ -6,11 +6,11 @@ class CtrlUser {
 
 	function __construct() {
 
-		// D�marrage (ou reprise) de la session
+		// Démarrage (ou reprise) de la session
 		session_start();
 
 
-// D�but
+// Début
 
 		// On initialise un tableau d'erreur :
 		$dVueEreur = array ();
@@ -20,19 +20,15 @@ class CtrlUser {
 
 			switch($action) {
 
-				// Pas d'action, on r�initialise 1er appel
+				// Pas d'action, on réinitialise 1er appel
 				case NULL:
 				$this->Reinit();
-				break;
-
-				case "validationFormulaire":
-				$this->ValidationFormulaire();
 				break;
 
 				// Mauvaise action
 				default:
 				$dVueEreur[] =	"Erreur d'appel php";
-				require ($rep.$vues['vuephp1']);
+				require ($rep.$vues['erreur']);
 				break;
 			}
 
@@ -50,41 +46,16 @@ class CtrlUser {
 		}
 
 
-//fin
+	//fin
 		exit(0);
-}//fin constructeur
+	}//fin constructeur
 
 
-function Reinit() {
-	global $rep,$vues;
+	function Reinit() {
+		global $rep,$vues;
 
-	$dVue = array (
-		'nom' => "",
-		'age' => 0,
-		);
-	require ($rep.$vues['vuephp1']);
+		require ($rep.$vues['accueil']);
+	}
 }
-
-function ValidationFormulaire() {
-	global $rep,$vues;
-
-
-//si exception, ca remonte !!!
-$nom=$_POST['txtNom']; // txtNom = nom du champ texte dans le formulaire
-$age=$_POST['txtAge'];
-\config\Validation::val_form($nom,$age,$dVueEreur);
-
-$model = new \modeles\Modele();
-$data=$model->get_data();
-
-$dVue = array (
-	'nom' => $nom,
-	'age' => $age,
-	'data' => $data,
-	);
-require ($rep.$vues['vuephp1']);
-}
-
-}//fin class
 
 ?>
