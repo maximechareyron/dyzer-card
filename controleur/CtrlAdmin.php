@@ -2,6 +2,8 @@
 
 namespace controleur;
 
+use config\Validation;
+
 class CtrlAdmin {
 
 	function __construct() {
@@ -103,8 +105,30 @@ class CtrlAdmin {
 		}
 		else
 		{
-			include \vues\erreur.php;
+			include \vues\erreur . php;
 		}
+	}
+
+	function deconnexion()
+	{
+		session_unset();
+		session_destroy();
+		$_SESSION=array();
+	}
+
+
+	function isAdmin()
+	{
+		$nettoyer = new Validation();
+
+		if(isset($_SESSION['login']) && isset($_SESSION['role']))
+		{
+			$login=$nettoyer::nettoyer_string($_SESSION['login']);
+            $role=$nettoyer::nettoyer_string($_SESSION['role']);
+            return new CtrlAdmin($login,$role);
+		}
+        else return NULL;
+
 	}
 }//fin class
 

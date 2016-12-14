@@ -6,11 +6,11 @@ class CtrlUser {
 
 	function __construct() {
 
-		// Démarrage (ou reprise) de la session
+		// Dï¿½marrage (ou reprise) de la session
 		session_start();
 
 
-// Début
+// Dï¿½but
 
 		// On initialise un tableau d'erreur :
 		$dVueEreur = array ();
@@ -20,7 +20,7 @@ class CtrlUser {
 
 			switch($action) {
 
-				// Pas d'action, on réinitialise 1er appel
+				// Pas d'action, on rï¿½initialise 1er appel
 				case NULL:
 				$this->Reinit();
 				break;
@@ -74,7 +74,7 @@ $nom=$_POST['txtNom']; // txtNom = nom du champ texte dans le formulaire
 $age=$_POST['txtAge'];
 \config\Validation::val_form($nom,$age,$dVueEreur);
 
-$model = new \modeles\Simplemodel();
+$model = new \modeles\Modele();
 $data=$model->get_data();
 
 $dVue = array (

@@ -56,6 +56,9 @@ class CtrlVisiteur {
 }//fin constructeur
 
 
+/**
+ *
+ */
 function Reinit() {
 	global $rep,$vues;
 
@@ -104,6 +107,28 @@ require ($rep.$vues['vuephp1']);
 		{
 			include \vues\erreur.php;
 		}
+	}
+
+	function deconnexion()
+	{
+		session_unset();
+		session_destroy();
+		$_SESSION=array();
+	}
+
+
+	function isVisiteur()
+	{
+		$nettoyer = new Validation();
+
+		if(isset($_SESSION['login']) && isset($SESSION['role']))
+		{
+			$login=$nettoyer::nettoyer_string($_SESSION['login']);
+			$role=$nettoyer::nettoyer_string($_SESSION['role']);
+			return new CtrlVisiteur($login,$role);
+		}
+		else return NULL;
+
 	}
 }//fin class
 
