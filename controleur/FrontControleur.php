@@ -2,7 +2,7 @@
 
 namespace controleur;
 
-class CtrlVisiteur {
+class Controleur {
 
 	function __construct() {
 
@@ -84,26 +84,13 @@ $dVue = array (
 	'data' => $data,
 	);
 require ($rep.$vues['vuephp1']);
+}
 
-	function Connexion($login,$mdp)
+
+
+	function deconnexion($login,$mdp)
 	{
-		if(isset($login) && isset($mdp))
-		{
-			filter_var($login, FILTER_SANITIZE_STRING);
 
-			filter_var($mdp, FILTER_SANITIZE_STRING);
-			$hash=sha1($mdp);
-
-			$connexion = new \DAL\Connection($login, $hash);
-
-			$_SESSION['role']=visiteur;
-			$_SESSION['nom']=$login;
-
-		}
-		else
-		{
-			include \vues\erreur.php;
-		}
 	}
 }//fin class
 
