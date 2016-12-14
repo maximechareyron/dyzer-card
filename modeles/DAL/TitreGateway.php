@@ -6,6 +6,8 @@
  * Date: 30/11/16
  * Time: 16:43
  */
+namespace DAL;
+
 class TitreGateway
 {
 
@@ -16,7 +18,8 @@ private $con;
         $this->con=$connection;
     }
 
-    private function insertTitre($nom, $nom_artiste, $id_album){
+    private function insertTitre($nom, $nom_artiste, $id_album)
+    {
         $query = 'INSERT INTO titre VALUES(NULL, :nom, :artiste, :album, SYSDATE, 0,0)';
 
         $this->con->executeQuery($query, array(
@@ -27,7 +30,8 @@ private $con;
 
     }
 
-    public function insert($nom, $nom_Artiste, $nomAlbum){
+    public function insert($nom, $nom_Artiste, $nomAlbum)
+    {
         $ag = new AlbumGateway();
 
         $res=$ag->exists($nomAlbum); //Renvoie false si l'album n'existe pas, true sinon
@@ -41,14 +45,29 @@ private $con;
     }
 
 
-    public function delete($id){
+    public function delete($id)
+    {
         $query = 'DELETE FROM titre WHERE idTitre=:id';
 
         $this->con->executeQuery($query, array(
             ':id' => array($id, PDO::PARAM_INT)
         ));
     }
+    public function update($id,$nom,$nomartiste,$nomalbum)
+    {
+        $idalbum=searchIdByName($nomalbum);
 
+        $query = ' UPDATE titre SET nom=:nom, nomartiste=:nomartiste, nomalbum=:nomalbum, idalbum=:idalbum WHERE idtitre=:id';
+
+        $this->executeQuery($query, array(
+            ':nom' => array($nom, PDO::PARAM_STR),
+            ':nomartiste' => array($nomartiste, PDO::PARAM_STR),
+            ':nomalbum' => array($nomalbum, PDO::PARAM_STR),
+            ':idalbum' => array($idalbum, PDO::PARAM_INT),
+            ':id' => array($id, PDO::PARAM_INT)));
+
+
+    }
 
 }
 

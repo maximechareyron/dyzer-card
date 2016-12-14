@@ -6,6 +6,8 @@
  * Date: 30/11/16
  * Time: 16:59
  */
+namespace DAL;
+
 class AuteurGateway
 {
     private $con;

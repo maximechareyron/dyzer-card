@@ -6,6 +6,8 @@
  * Date: 01/12/16
  * Time: 15:18
  */
+namespace DAL;
+
 class CommentaireGateway
 {
     private $con;
@@ -21,8 +23,8 @@ class CommentaireGateway
 
         $this ->executeQuery($query, array(
                 ':nom' => array($nom,PDO::PARAM_STR),
-                ':text' => array($idartiste,PDO::PARAM_STR),
-                ':interet' => array($infos,PDO::PARAM_INT)
+                ':text' => array($text,PDO::PARAM_STR),
+                ':interet' => array($interet,PDO::PARAM_INT)
             )
         );
 
@@ -38,7 +40,7 @@ class CommentaireGateway
 
     public function update($id,$nom,$text,$interet){
 
-        $query = ' UPDATE commentaire SET idcommentaire=:id, nom=:nom, text=:text, interet=:interet WHERE idcommentaire=:idcommentaire';
+        $query = ' UPDATE commentaire SET idcommentaire=:id, nom=:nom, text=:text, interet=:interet WHERE idcommentaire=:id';
 
         $this->executeQuery($query, array(
             ':id' => array($id, PDO::PARAM_INT),

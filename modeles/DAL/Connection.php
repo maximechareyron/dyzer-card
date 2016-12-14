@@ -6,6 +6,8 @@
  * Date: 30/11/16
  * Time: 15:54
  */
+namespace DAL;
+
 class Connection extends PDO
 {
     private $stmt;

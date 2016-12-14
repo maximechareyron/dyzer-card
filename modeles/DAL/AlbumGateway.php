@@ -5,6 +5,7 @@
  * Date: 30/11/16
  * Time: 16:48
  */
+namespace DAL;
 
 class AlbumGateway{
 
