@@ -23,7 +23,7 @@
 
       <div class="row">
         <div class="col-md-12 col-xs-12">
-          <h1 class="animated fadeInUpBig"><span class="glyphicon glyphicon-list"></span> TOP 10</h1>
+          <h1 class="animated fadeInUpBig"><span class="glyphicon glyphicon-music"></span> TOP 10</h1>
         </div>
       </div>
 

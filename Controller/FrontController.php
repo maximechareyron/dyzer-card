@@ -31,7 +31,6 @@ class FrontController
             // Récupération de l'action
             $action = Sanitize::sanitizeItem($_REQUEST['action'], "string");
 
-
             // On distingue des cas d'utilisation, suivant l'action
             switch ($action) {
                 // 1) actions accessibles à tout le monde
@@ -61,7 +60,10 @@ class FrontController
                 case "addTitle": // Ajouter un titre
                     ControlAdmin::addTitle();
                     break;
-                //case "editTitle": // Modifier les informations d'un titre
+                case "validateTitle": //Validation d'un nouveau titre
+                    ControlAdmin::validateTitle();
+                    break;
+                // case "editTitle": //Modifier les informations d'un titre
                 case "deleteTitle": // Supprimer un titre
                     // 3. b) concernant les commentaires :
                 /*case "deleteComment": // Supprimer un commentaire

@@ -13,7 +13,7 @@ class Music
     public $avisfav;
     public $avisdefav;
     public $album_id;
-    public $datamaj;
+    public $dateMaj;
     public $coverPath;
     public $musicPath;
 
@@ -26,9 +26,11 @@ class Music
         $this->avisfav = $nbLike;
         $this->avisdefav = $nbNLike;
         $this->album_id = $albumID;
-        $this->datamaj = $dateOnline;
+        $this->dateMaj = $dateOnline;
 
-        $this->musicPath = $this->getAudio($musicID);
+        if($musicID!="") {
+            $this->musicPath = $this->getAudio($musicID);
+        }
         if (isset($albumID)) {
             $this->coverPath = $this->getCover($albumID);
         } else {
@@ -44,6 +46,16 @@ class Music
     public static function getCover($album)
     {
         return Config::getRootURI() . "/Media/Cover/" . $album . ".png";
+    }
+
+    public static function getFullPathCover($albumID){
+        global $rootDirectory;
+        return $rootDirectory."/Media/Cover/" . $albumID . ".png";
+    }
+
+    public static function getFullPathAudio($musicID){
+        global $rootDirectory;
+        return $rootDirectory."/Media/Music/" . $musicID . ".mp3";
     }
 
 

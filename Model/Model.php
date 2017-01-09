@@ -38,8 +38,16 @@ class Model
     {
         $gw = new MusicGateway(Config::createConnection());
         return $gw->addTitle($music);
+        echo "sortie";
     }
 
+    /**
+     * @return bool|mixed Id de la dernière musique ajoutée ou false.
+     */
+    public static function getLatestID(){
+        $gw=new MusicGateway(Config::createConnection());
+        return $gw->getLatestID();
+    }
 
     /**
      * @param $music_id int Indentifiant de la musique à supprimer

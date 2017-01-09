@@ -5,6 +5,7 @@ namespace DyzerCard\Controller;
 
 use DyzerCard\Auth\Authentication;
 use DyzerCard\Auth\ModelUser;
+use DyzerCard\Auth\SessionHandler;
 use DyzerCard\Auth\ValidationRequest;
 use DyzerCard\Config\Config;
 
@@ -61,17 +62,18 @@ class ControlVisitor
     public static function validateAuth()
     { // Valider l'authentification
         global $dataError;
+        $s=SessionHandler::getInstance();
+        if(isset($s->role)){
+            require(Config::getVues()['default']);
+            return;
+        }
         // Les données seront filtrées par PDO::prepare()
         $email = $_POST['email'];
         $password = $_POST['password'];
         $role = Authentication::checkAndInitiateSession($email, $password, $dataError);
         // Si pas d'erreur
         if (empty($dataError)) {
-            if ($role === "admin") {
-                require(Config::getVues()["admin"]);
-            } else if ($role === "visitor") {
                 require(Config::getVues()["default"]);
-            }
         } else {
             // On affiche la page d'authentification, avec les erreurs.
             require(Config::getVues()["pageAuth"]);

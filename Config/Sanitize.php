@@ -43,6 +43,9 @@ class Sanitize
     }
 
     public static function sanitizeItem($item, $type){
+        if(empty($item)){
+            return false;
+        }
         return filter_var($item, self::getSanitizeFilter($type));
     }
 }

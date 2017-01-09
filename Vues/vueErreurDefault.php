@@ -16,13 +16,9 @@
          </div>
      </div>
 
-     <div class="spacer">
-         <?php
-         foreach($dataError as $subError){
-             echo $subError . "<br/>";
-         }
-         ?>
-     </div>
+     <!--Errors display starts-->
+     <?php require 'displayErrors.php'; ?>
+     <!--Errors display Ends-->
 
 </div>
 <!-- blockblack -->

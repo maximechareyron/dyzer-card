@@ -2,6 +2,7 @@
 
 namespace DyzerCard\Persistance\DAL;
 
+use DyzerCard\Metier\Music;
 use DyzerCard\Persistance\Connection;
 
 class MusicGateway
@@ -44,24 +45,41 @@ class MusicGateway
         return $this->dbcon->getResults();
     }
 
+    /**
+     * @return bool|mixed Id de la dernière musique ajoutée ou false.
+     */
+    public function getLatestID(){
+        global $dataError;
+        $query = 'SELECT MAX(idmusique) FROM musique';
+        $res = $this->dbcon->prepareAndExecuteQuery($query);
+        if(!$res){
+            $dataError['database'] = "Unable to recover music ID";
+            return $res;
+        }
+        return $this->dbcon->getResults();
+    }
 
     /** @brief Ajoute un titre dans la BD.
-     * @param $title Titre à ajouter à la base.
+     * @param $title Music Titre à ajouter à la base.
      * @return bool
      */
     public function addTitle($title)
     {
         global $dataError;
-        $query = 'INSERT INTO musique VALUES(DEFAULT, :titre, :annee, 0, 0, :artiste, :album_id, DEFAULT)';
+        $query = 'INSERT INTO musique VALUES(DEFAULT, :titre, :artiste, :annee, 0, 0, :album_id, DEFAULT)';
         $tab = array(
-            ':titre' => array($title->title, \PDO::PARAM_STR),
-            ':annee' => array($title->year, \PDO::PARAM_INT),
-            ':artiste' => array($title->artist, \PDO::PARAM_STR),
-            ':album_id' => array($title->albumID, \PDO::PARAM_INT)
+            ':titre' => array($title->titre, \PDO::PARAM_STR),
+            ':annee' => array($title->annee, \PDO::PARAM_INT),
+            ':artiste' => array($title->artiste, \PDO::PARAM_STR),
+            ':album_id' => array($title->album_id, \PDO::PARAM_INT)
         );
-        $res = $this->dbcon->prepareAndExecuteQuery($query, $tab);
+        try{
+            $res = $this->dbcon->prepareAndExecuteQuery($query, $tab);
+        }catch(\Exception $e){
+            $dataError['db']=$e->getMessage();
+        }
         if (!$res) {
-            $dataError['persistance'] = "Query could not be executed.";
+            $dataError['database'] = "Title could not be added to database.";
         }
         return $res;
     }

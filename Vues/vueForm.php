@@ -4,15 +4,7 @@
 <div class="container overlay">
 
     <!--Errors display starts-->
-    <?php
-    if(!empty($dataError)){
-        echo "<div class=\"errorblock\">";
-            foreach ($dataError as $err){
-                echo "$err";
-            }
-            echo "</div>";
-    }
-    ?>
+    <?php require 'displayErrors.php'; ?>
     <!--Errors display Ends-->
 
 

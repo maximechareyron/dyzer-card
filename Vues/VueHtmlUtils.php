@@ -35,34 +35,6 @@ class VueHtmlUtils {
 	public static function finFichierHTML5(){
 		return "\n</body>\n</html>\n";
 	}
-	
-	/** Fonction qui retourne le code HTML d'un formulaire de login
-	 * @param $formAction chemin (ou URL absolue) vers le script de réception */
-	public static function getHTML_LoginForm($formAction){
-		
-		$htmlCode = "";
-		// Test de connexion SSL et le cas échéant, warning.
-		if (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == "off"){
-			$htmlCode .= "<p><strong>Warning :</strong> Vous n'êtes pas "
-									."sur une connexion sécurisée <i>HTTPS</i> avec <i>SSL</i>."
-									."<br/>Votre confidentialité n'est pas garantie !!!</p>";
-		}
-				// Code du formulaire :
-		$htmlCode .= '<form method="POST" action="'.$formAction.'">';
-		$htmlCode .= '<input type="hidden" name="action" value="validateAuth"/>';
-		$htmlCode .= '<p><label for="e-mail">e-mail</label>'
-								.'<input type="email" name="email" size="25"/></p>';
-		$htmlCode .= '<p><label for="motdepasse">Mot de passe</label>'
-								.'<input type="password" name="motdepasse" size="25"/></p>';
-		$htmlCode .= '<input class="sansLabel" value="Envoyer" type="submit"/>';
-		$htmlCode .= '</form>';
-		$htmlCode .=  "<p>L'adresse <i>e-mail</i> doit être valide et votre "
-								 ."mot de passe doit contenir au moins 8 caractères, une "
-								 ."minuscule, une majuscule, un chiffre, et un caractère parmis "
-								 .htmlentities("#-|.@[]=!&", ENT_QUOTES, "UTF-8")
-								 .", merci de votre compréhension...</p>";
-		return $htmlCode;
-	}
 
 	public static function getHTML_Playlist($tab)
 	{
@@ -77,7 +49,7 @@ class VueHtmlUtils {
 			$htmlCode .= "\t</a>\n";
 			$htmlCode .= "\t\t<div class=\"caption\">\n";
 			$htmlCode .= "\t\t\t<h5>".$musique->titre."</h5>\n";
-			$htmlCode .= "\t\t\t<p>Auteur : ".$musique->artiste."</p>\n";
+			$htmlCode .= "\t\t\t<p>Artist : ".$musique->artiste."</p>\n";
 			$htmlCode .= "\t\t\t<p> <span class=\"glyphicon glyphicon-thumbs-up\"></span> : ".$musique->avisfav."\n";
 			$htmlCode .= "\t\t\t<span class=\"glyphicon glyphicon-thumbs-down\" style=\"margin-left: 20px;\"></span> : ".$musique->avisdefav."</p>\n";
 			//$htmlCode .= "\t\t\t<p><a href=\"?action=detailTitre\" class=\"btn\" role=\"button\">Afficher détails</a>\n";
@@ -104,7 +76,7 @@ class VueHtmlUtils {
 		if($_SESSION['role']!='admin') {
 			return;
 		}
-		$htmlCode = "<li><a id=\"saisieTitre\" href=\"?action=saisieMusiqueCreate\">Ajouter un Titre</a></li>\n";
+		$htmlCode = "<li><a id=\"saisieTitre\" href=\"?action=addTitle\">Ajouter un Titre</a></li>\n";
 
 		return $htmlCode;
 
@@ -127,7 +99,7 @@ class VueHtmlUtils {
 
 			case 'visitor':
 				$htmlCode .= "<a href=\"?action=logout\">\n";
-				$htmlCode .= "<span class=\"glyphicon glyphicon-log-in\">\n";
+				$htmlCode .= "<span class=\"glyphicon glyphicon-log-out\">\n";
 				$htmlCode .= "</span> Sign out\n";
 				$htmlCode .= "</a>\n";
 				$htmlCode .= "</li>\n";
