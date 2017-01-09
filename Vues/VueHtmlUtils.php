@@ -120,21 +120,21 @@ class VueHtmlUtils {
 			case 'admin':
 				$htmlCode .= "<a>\n";
 				$htmlCode .= "<span class=\"glyphicon glyphicon-user\">\n";
-				$htmlCode .= "</span> Log as Admin\n";
+				$htmlCode .= "</span> Logged as Admin\n";
 				$htmlCode .= "</a>\n";
 				break;
 
 
-			case 'user':
+			case 'visitor':
 				$htmlCode .= "<a href=\"?action=logout\">\n";
 				$htmlCode .= "<span class=\"glyphicon glyphicon-log-in\">\n";
-				$htmlCode .= "</span> Deconnexion\n";
+				$htmlCode .= "</span> Sign out\n";
 				$htmlCode .= "</a>\n";
 				$htmlCode .= "</li>\n";
 				$htmlCode .= "<li>\n";
 				$htmlCode .= "<a>\n";
 				$htmlCode .= "<span class=\"glyphicon glyphicon-log-in\">\n";
-				$htmlCode .= "</span> Log as Visitor\n";
+				$htmlCode .= "</span> Logged as Visitor\n";
 				$htmlCode .= "</a>\n";
 				break;
 

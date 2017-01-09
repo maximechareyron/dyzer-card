@@ -70,7 +70,7 @@ class ControlVisitor
             if ($role === "admin") {
                 require(Config::getVues()["admin"]);
             } else if ($role === "visitor") {
-                require(Config::getVues()["visitorAuth"]);
+                require(Config::getVues()["default"]);
             }
         } else {
             // On affiche la page d'authentification, avec les erreurs.
