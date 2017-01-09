@@ -3,22 +3,26 @@
 <!-- overlay -->
 <div class="container overlay">
 
+    <!--Errors display starts-->
+    <?php require 'displayErrors.php'; ?>
+    <!--Errors display Ends-->
 
 
-
-    <!--Contact Starts-->
+    <!--Form Starts-->
     <div class="spacer">
         <div class="contactform center">
             <h3><span class="glyphicon glyphicon-envelope"></span> Sign Up !</h3>
             <div class="row">
                 <div class="col-sm-6 col-sm-offset-3 ">
-                    <input type="text" placeholder="Username" required>
-                    <input type="password" placeholder="Password" required>
-                    <button class="btn btn-warning bgcolor" type="submit">Sign Up !</button>
+                    <form method="post" action="?action=validateRegister">
+                        <input type="text" placeholder="email" name="email" required>
+                        <input type="password" placeholder="password" name="password" required>
+                        <input class="btn btn-warning bgcolor" type="submit" value="Sign Up !">
+                    </form>
                 </div>
             </div>
         </div>
-        <!--Contact Ends-->
+        <!--Form Ends-->
     </div>
 
 </div>

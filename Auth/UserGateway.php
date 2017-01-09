@@ -42,19 +42,23 @@ class UserGateway
 
     /** @brief Créée un utilisateur dans la BD
      * @param $dataError array Tableau d'erreurs à remplir en cas de besoin
-     * @param $inputArray array Tableau d'entrée contenant un login (e-mail), un mot de passe, et un rôle
+     * @param $inputArray array Tableau d'entrée contenant un login (e-mail), un mot de passe (non crypté), et un rôle
      * @return bool
      */
     public function createUser(&$dataError, $inputArray)
     {
         $inputArray['password'] = hash("sha512", $inputArray['password']);
-        $query = 'INSERT INTO admin VALUES (:email,:password,:role)';
+        $query = 'INSERT INTO admin VALUES (:login,:passwd,:role)';
         $tab = array(
             ':login' => array($inputArray['login'], \PDO::PARAM_STR),
             ':passwd' => array($inputArray['password'], \PDO::PARAM_STR),
             ':role' => array($inputArray['role'], \PDO::PARAM_STR)
         );
-        $res = $this->dbcon->prepareAndExecuteQuery($query, $tab);
+        try{
+            $res = $this->dbcon->prepareAndExecuteQuery($query, $tab);
+        } catch (\Exception $e){
+            $dataError['db']=$e->getMessage();
+        }
         if (!$res) {
             $dataError['persistance'] = "Query could not be executed. Login may already exist.";
         }

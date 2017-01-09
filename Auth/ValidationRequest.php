@@ -3,6 +3,7 @@
 namespace DyzerCard\Auth;
 
 // source : Cours de R. Malgouyres, Code Source 7.9
+use DyzerCard\Config\Validation;
 
 /** @brief Validation des données de login/password reçues via $_REQUEST.
  * Nettoyage de toutes les chaînes.
@@ -22,13 +23,14 @@ class ValidationRequest
     {
         // Test sur la forme des données de login et de mot de passe :
         $wouldBePasswd = $_POST['password'];
-        if (empty($wouldBePassword)) {
+        if (empty($wouldBePasswd)) {
             $password = "";
             $dataError['password'] = "Invalid password.";
         } else {
             $password = $wouldBePasswd;
         }
-        if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) == FALSE) {
+
+        if (!Validation::validateItem($_POST['email'], "email")) {
             $email = "";
             $dataError['login'] = "Invalid mail adress.";
         } else {

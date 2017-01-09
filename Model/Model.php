@@ -38,7 +38,6 @@ class Model
     {
         $gw = new MusicGateway(Config::createConnection());
         return $gw->addTitle($music);
-        echo "sortie";
     }
 
     /**

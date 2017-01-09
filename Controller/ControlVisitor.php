@@ -29,7 +29,13 @@ class ControlVisitor
         ValidationRequest::validationLogin($dataError, $email, $password);
         // Si e-mail et mot de passe de la bonne forme :
         if (empty($dataError)) {
-            ModelUser::createUser($dataError, $_POST);
+            $dataUser=array(
+                'login'=>$email,
+                'password'=>$password,
+                'role'=>'visitor'
+            );
+            ModelUser::createUser($dataError, $dataUser);
+            var_dump($dataError);
             // Si la requête a fonctionné :
             if (empty($dataError)) {
                 $role = Authentication::checkAndInitiateSession($email, $password, $dataError);
@@ -47,9 +53,6 @@ class ControlVisitor
             }
         } // E-mail & mot de passe invalides, on affiche les erreurs, puis on affiche le formulaire
         else {
-            foreach ($dataError as $error) {
-                echo $error . "<br/>";
-            }
             require(Config::getVues()["pageRegister"]);
         }
     }
@@ -76,6 +79,7 @@ class ControlVisitor
                 require(Config::getVues()["default"]);
         } else {
             // On affiche la page d'authentification, avec les erreurs.
+            var_dump($_POST);
             require(Config::getVues()["pageAuth"]);
         }
     }
