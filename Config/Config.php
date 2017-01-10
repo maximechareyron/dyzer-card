@@ -45,12 +45,9 @@ class Config
             "pageAuth" => $vueDirectory . "vueForm.php",
             "pageRegister" => $vueDirectory . "vueFormRegister.php",
             "visitorAuth" => $vueDirectory . "vueVisitorAuth.php",
-            "admin" => $vueDirectory . "vueAdmin.php",
             "addTitle" => $vueDirectory . "vueAddTitle.php",
             "afficheMusique" => $vueDirectory . "vueAfficheMusique.php",
             //"saisieMusiqueUpdate"=>$vueDirectory."vueSaisieMusiqueUpdate.php",
-            "infos" => $vueDirectory . "vueInfos.php",
-            "afficheCommentaire" => $vueDirectory . "vueAfficheCommentaire.php",
         );
     }
 
