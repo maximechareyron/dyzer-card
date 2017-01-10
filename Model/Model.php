@@ -89,7 +89,8 @@ class Model
     public static function getLatestAlbumID()
     {
         $gw = new AlbumGateway(Config::createConnection());
-        return $gw->getLatestID()[0]["MAX(idmusique)"];
+        var_dump($gw->getLatestID());
+        return $gw->getLatestID()[0]["MAX(idalbum)"];
     }
 
     /**
@@ -101,19 +102,19 @@ class Model
         $gw = new MusicGateway(Config::createConnection());
         return $gw->removeTitle($music_id);
     }
-    
+
     public static function getTitleMusic($musicID)
     {
+
         $gw = new MusicGateway(Config::createConnection());
+
         $res = $gw->getByID($musicID);
-        if(!empty($res)){
-            $tab=array();
-                array_push($tab, array($res['idmusique'], $res['titre'], $res['artiste'], $res['annee'], $res['avisfav'], $res['avisdefav'], $res['album_id'], $res['dateMaj']));
-            return $tab;
-        }
-        return $res;
+        var_dump($res);
+        $musique = new Music($res['idmusique'], $res['titre'], $res['artiste'], $res['annee'], $res['avisfav'], $res['avisdefav'], $res['album_id'], $res['datemaj']);
+
+        return $musique;
     }
-    
+
     public static function getComments($musicID)
     {
         $gw = new MusicGateway(Config::createConnection());
