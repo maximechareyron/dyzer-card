@@ -42,7 +42,7 @@ class Connection extends \PDO
      */
     public function getResults()
     {
-        return $this->stmt->fetchAll();
+        return $this->stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**

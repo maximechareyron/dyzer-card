@@ -7,6 +7,7 @@ namespace DyzerCard\Model;
 
 use DyzerCard\Config\Config;
 use DyzerCard\Metier\Music;
+use DyzerCard\Persistance\DAL\AlbumGateway;
 use DyzerCard\Persistance\DAL\MusicGateway;
 
 class Model
@@ -58,12 +59,28 @@ class Model
     }
 
     /**
+     * @return mixed Tableau des titres des albums de la BD
+     */
+    public static function getAllAlbumsTitles(){
+        $gw = new AlbumGateway(Config::createConnection());
+        $res = $gw->getAllAlbums();
+        if($res){
+            $tab=array();
+            foreach ($res as $l){
+                array_push($tab, array($l['idalbum'], $l['titre']));
+            }
+            return $tab;
+        }
+        return $res;
+    }
+
+    /**
      * @return bool|mixed Id de la dernière musique ajoutée ou false.
      */
     public static function getLatestID()
     {
         $gw = new MusicGateway(Config::createConnection());
-        return $gw->getLatestID()[0][0];
+        return $gw->getLatestID()[0]["MAX(idmusique)"];
     }
 
     /**

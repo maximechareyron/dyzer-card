@@ -2,6 +2,8 @@
 
 namespace DyzerCard\Controller;
 
+use DyzerCard\Auth\ModelUser;
+use DyzerCard\Auth\SessionHandler;
 use DyzerCard\Config\Config;
 use DyzerCard\Config\Sanitize;
 use DyzerCard\Config\Validation;
@@ -14,11 +16,27 @@ class ControlAdmin
     public static function addTitle()
     {
         global $dataError;
-        if ($_SESSION['role'] != 'admin') {
+        $s=SessionHandler::getInstance();
+        if ($s->role != 'admin') {
             require(Config::getVues()['pageAuth']);
-        } else {
-            require(Config::getVues()['addTitle']);
+            return;
         }
+        if(isset($_POST['albumID'])){
+            if (Validation::validateItem($_POST['albumID'], "int")) {
+                $s->albumID=$_POST['albumID'];
+            }
+            else{
+                $dataError['InvalidAlbumID']="The album ID must be a number.";
+            }
+        }
+
+        if(empty($s->albumToAdd)){
+            $formToDisplay='select_album';
+            $AlbumsList=Model::getAllAlbumsTitles();
+        }else{
+            $formToDisplay='titre';
+        }
+        require(Config::getVues()['addTitle']);
     }
 
     public static function validateTitle()
