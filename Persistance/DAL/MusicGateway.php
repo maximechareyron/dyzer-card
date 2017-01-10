@@ -76,7 +76,7 @@ class MusicGateway
         );
         try {
             $res = $this->dbcon->prepareAndExecuteQuery($query, $tab);
-        } catch (\Exception $e) {
+        } catch (\PDOException $e) {
             $dataError['db'] = $e->getMessage();
         }
         if (!$res) {
@@ -89,13 +89,17 @@ class MusicGateway
     public function removeTitle($music_id)
     {
         global $dataError;
-        $query = 'DELETE FROM musique WHERE idmusique=:mudic_id';
+        $query = 'DELETE FROM musique WHERE idmusique= :music_id';
         $tab = array(
             ':music_id' => array($music_id, \PDO::PARAM_INT)
         );
-        $res = $this->dbcon->prepareAndExecuteQuery($query, $tab);
+        try {
+            $res = $this->dbcon->prepareAndExecuteQuery($query, $tab);
+        }catch (\PDOException $e){
+            $dataError['db']=$e->getMessage();
+        }
         if (!$res) {
-            $dataError['persistance'] = "Query could not be executed." . " Music ID may not exist.";
+            $dataError['persistance'] = "Title couldn't not be deleted from the database" . " Music ID may not exist.";
         }
         return $res;
     }

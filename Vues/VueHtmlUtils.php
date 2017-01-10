@@ -166,7 +166,7 @@ class VueHtmlUtils
         $htmlCode .= "<source src=\"$musique->musicPath\" type=\"audio/mp3\"></audio><br/><br/>";
         $htmlCode .= "\t\t<span class=\"glyphicon glyphicon-time\"></span> Added on website : $musique->dateMaj\n";
         $htmlCode .= "<p>";
-        $htmlCode .= self::getHTML_TitleDetailsControls($_SESSION['role'], $musique->musicID);
+        $htmlCode .= self::getHTML_TitleDetailsControls($_SESSION['role'], $musique->idMusique);
         $htmlCode .= "</p>";
 
         $htmlCode .= "\t</div>\n";
@@ -183,7 +183,7 @@ class VueHtmlUtils
         //$htmlCode = "<div class=\"row\">\n";
         $htmlCode = "\t<div class=\"col-sm-7 col-md-5\">\n";
         $htmlCode .= "<form action=\"?action=deleteTitle\" method=\"post\">";
-        $htmlCode .= "\t<input type=\"hidden\" name=\"musicID\">";
+        $htmlCode .= "\t<input type=\"hidden\" name=\"musicID\" value='$musicID'>";
         $htmlCode .= "\t<button class=\"btn btn-danger btn-lg\" type=\"submit\"><span class=\"glyphicon glyphicon-trash\"></span> Delete this title</button>";
         $htmlCode .= "</form>";
         $htmlCode .= "\t</div>\n";

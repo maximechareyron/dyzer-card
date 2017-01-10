@@ -167,9 +167,28 @@ class ControlAdmin
             require(Config::getVues()['pageAuth']);
             return;
         }
-        
 
+        if(isset($_POST['musicID'])) {
+            if(!Validation::validateItem($_POST['musicID'], "int")) {
+                $dataError['InvalidMusicID'] = "The music ID must be a number.";
+            } else {
+                $musicID = Sanitize::sanitizeItem($_POST['musicID'], "int");
+            }
+        }
 
+        if(!empty($dataError)){
+            require Config::getVuesErreur()['Default'];
+            return;
+        }
+
+        Model::removeTitle($musicID);
+        if (!empty($dataError)) {
+            require Config::getVuesErreur()['default'];
+            return;
+        }else{
+            FrontController::Reinit();
+            return;
+        }
     }
 
 }

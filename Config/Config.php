@@ -57,7 +57,7 @@ class Config
         // Racine du site
         global $rootDirectory;
         // Répertoire contenant les Vues d'erreur
-        $vueDirectory = $rootDirectory . "Vue/Vues/";
+        $vueDirectory = $rootDirectory . "Vues/";
         return array(
             "default" => $vueDirectory . "vueErreurDefault.php"
         );
