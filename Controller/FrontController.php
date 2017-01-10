@@ -68,6 +68,8 @@ class FrontController
                     break;
                 // case "editTitle": //Modifier les informations d'un titre
                 case "deleteTitle": // Supprimer un titre
+                    ControlAdmin::deleteTitle();
+                    break;
                     // 3. b) concernant les commentaires :
                     /*case "deleteComment": // Supprimer un commentaire
                         if ($role == "admin") {
