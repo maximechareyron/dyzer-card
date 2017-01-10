@@ -198,24 +198,19 @@ class VueHtmlUtils
         $htmlCode .= "\t\t<h1>Espace Commentaire :</h1>\n";
         $htmlCode .= "\t</div>\n";
         $htmlCode .= "</div>\n";
-        $htmlCode .= "<div class=\"row\">\n";
-        $cpt = 0;
+
+
         foreach($commentaires as $subCom) {
+            $htmlCode .= "<div class=\"row\">\n";
             $htmlCode .= "\t<div class=\"col-md-4 spacer\">\n";
-            $htmlCode .= "\t\t<p>mdr jpp tro for</p>\n";
-            $htmlCode .= "\t\t<p><span class=\"glyphicon glyphicon-user\"></span> Par : Auteur</p>\n";
+            $htmlCode .= "\t\t<p>$subCom->text</p>\n";
+            $htmlCode .= "\t\t<p><span class=\"glyphicon glyphicon-user\"></span> Par : $subCom->idUser</p>\n";
+            $htmlCode .= "\t</div>\n";
             $htmlCode .= "\t</div>\n";
 
-            $cpt++;
 
-            if($cpt==3)
-            {
-                $htmlCode .= "</div>\n";
-                $htmlCode .= "<div class=\"row\">\n";
-
-                $cpt = 0;
-            }
         }
+        $htmlCode .= "</div>\n";
 
         return $htmlCode;
     }
