@@ -35,6 +35,28 @@ class CommentGateway
         }
         return $this->dbcon->getResults();
     }
+    
+    public function addComment($musicID,$iduser,$text)
+    {
+        {
+            global $dataError;
+            $query = 'INSERT INTO comment VALUES(:musicID, :iduser, :text)';
+            $tab = array(
+                ':musicID' => array($musicID, \PDO::PARAM_INT),
+                ':iduser' => array($iduser, \PDO::PARAM_INT),
+                ':text' => array($text, \PDO::PARAM_STR),
+                );
+            try {
+                $res = $this->dbcon->prepareAndExecuteQuery($query, $tab);
+            } catch (\Exception $e) {
+                $dataError['db'] = $e->getMessage();
+            }
+            if (!$res) {
+                $dataError['database'] = "Comment could not be added to database.";
+            }
+            return $res;
+        }
+    }
 }
 
 ?>

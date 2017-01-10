@@ -24,6 +24,9 @@
         case 'add_album':
             require 'forms/formAddAlbum.php';
             break;
+        case 'add_comment':
+            require 'forms/formAddComment.php';
+            break;
         default:
             echo "Invalid argument : $formToDisplay";
     }

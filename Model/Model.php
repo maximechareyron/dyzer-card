@@ -9,6 +9,7 @@ use DyzerCard\Config\Config;
 use DyzerCard\Metier\Music;
 use DyzerCard\Persistance\DAL\AlbumGateway;
 use DyzerCard\Persistance\DAL\MusicGateway;
+use DyzerCard\Persistance\DAL\CommentGateway;
 
 class Model
 {
@@ -132,10 +133,10 @@ class Model
         return $gw->addAlbum($title);
     }
 
-    public static function addComment($musicID,$iduser,$text)
+    public static function addCommentMusic($musicID,$iduser,$text)
     {
         $gw = new CommentGateway(Config::createConnection());
-        return $gw->addTitle($music);
+        return $gw->addComment($musicID,$iduser,$text);
     }
 }
 
