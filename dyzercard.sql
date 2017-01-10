@@ -73,6 +73,13 @@ INSERT INTO `musique` (`idmusique`, `titre`, `artiste`, `annee`, `avisfav`, `avi
 (9, 'J\'irais ou tu iras', 'Celine Dion - Jean Jacques Goldman', 1995, 0, 0, 4, '2017-01-08 12:29:21'),
 (10, 'Belle', 'Daniel Lavoie, Garou, Patrick Fiori', 1998, 0, 0, 5, '2017-01-08 12:28:32');
 
+
+CREATE TABLE `commentaire` (
+  `idmusique` int(11) NOT NULL,
+  `iduser` varchar(50) DEFAULT NULL,
+  `date` varchar(200) DEFAULT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `text` int(11) DEFAULT NULL,
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 --
 -- Indexes for dumped tables
 --
