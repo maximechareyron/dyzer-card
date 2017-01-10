@@ -5,6 +5,7 @@ body {
     font: normal 16px/22px 'Carrois Gothic', Arial, Helvetica;
     background: #111;
     color: #ccc;
+    position: relative;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -238,7 +239,7 @@ a:hover {
     margin-top: 50px;
     z-index: 100;
     position: relative;
-    bottom: 0px
+    bottom: 0px;
 }
 
 #footer2 {
