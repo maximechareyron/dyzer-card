@@ -64,7 +64,7 @@ class Model
     public static function getAllAlbumsTitles(){
         $gw = new AlbumGateway(Config::createConnection());
         $res = $gw->getAllAlbums();
-        if($res){
+        if(!empty($res)){
             $tab=array();
             foreach ($res as $l){
                 array_push($tab, array($l['idalbum'], $l['titre']));
@@ -91,6 +91,34 @@ class Model
     {
         $gw = new MusicGateway(Config::createConnection());
         return $gw->removeTitle($music_id);
+    }
+    
+    public static function getTitle($musicID)
+    {
+        $gw = new MusicGateway(Config::createConnection());
+        $res = $gw->getByID($musicID);
+        if(!empty($res)){
+            $tab=array();
+            foreach ($res as $l){
+                array_push($tab, array($l['auteur'], $l['texte']));
+            }
+            return $tab;
+        }
+        return $res;
+    }
+    
+    public static function getComments($musicID)
+    {
+        $gw = new MusicGateway(Config::createConnection());
+        $res = $gw->getByID($musicID);
+        if(!empty($res)){
+            $tab=array();
+            foreach ($res as $l){
+                array_push($tab, array($l['auteur'], $l['texte']));
+            }
+            return $tab;
+        }
+        return $res;
     }
 }
 
