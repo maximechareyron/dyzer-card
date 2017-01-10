@@ -81,7 +81,7 @@ class VueHtmlUtils
         if ($_SESSION['role'] != 'admin') {
             return;
         }
-        $htmlCode = "<li><a id=\"saisieTitre\" href=\"?action=addTitle\">Ajouter un Titre</a></li>\n";
+        $htmlCode = "<li><a id=\"saisieTitre\" href=\"?action=addTitle\">Add title</a></li>\n";
 
         return $htmlCode;
 
@@ -98,19 +98,26 @@ class VueHtmlUtils
                 $htmlCode .= "<span class=\"glyphicon glyphicon-user\">\n";
                 $htmlCode .= "</span> Logged as Admin\n";
                 $htmlCode .= "</a>\n";
-                break;
-
-
-            case 'visitor':
+                $htmlCode .= "<li>\n";
                 $htmlCode .= "<a href=\"?action=logout\">\n";
                 $htmlCode .= "<span class=\"glyphicon glyphicon-log-out\">\n";
                 $htmlCode .= "</span> Sign out\n";
                 $htmlCode .= "</a>\n";
                 $htmlCode .= "</li>\n";
-                $htmlCode .= "<li>\n";
+
+                break;
+
+
+            case 'visitor':
                 $htmlCode .= "<a>\n";
-                $htmlCode .= "<span class=\"glyphicon glyphicon-log-in\">\n";
+                $htmlCode .= "<span class=\"glyphicon glyphicon-user\">\n";
                 $htmlCode .= "</span> Logged as Visitor\n";
+                $htmlCode .= "</a>\n";
+                $htmlCode .= "</li>\n";
+                $htmlCode .= "<li>\n";
+                $htmlCode .= "<a href=\"?action=logout\">\n";
+                $htmlCode .= "<span class=\"glyphicon glyphicon-log-out\">\n";
+                $htmlCode .= "</span> Sign out\n";
                 $htmlCode .= "</a>\n";
                 break;
 

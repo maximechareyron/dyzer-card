@@ -54,7 +54,7 @@ class ControlAdmin
                 // Si le fichier n'a pas la bonne extension chez le client
                 $fileformat = end(explode('.', $_FILES['albumCover']['name']));
                 if ($fileformat != "png") {
-                    $dataError['WrongFormat'] = "Invalid file format : $fileformat. png expected.";
+                    $dataError['WrongFormat'] = "Invalid file format : Got <.$fileformat> while <.png> was expected.";
                 } // On le copie dans son répertoire en testant:
                 else if (!move_uploaded_file($filename, Music::getFullPathCover($albumID))) {
                     // Pour que la copie fonctionne, il faut que apache ait les droits d'écriture sur le répertoire...
@@ -78,7 +78,7 @@ class ControlAdmin
             // Si le fichier n'a pas la bonne extension chez le client
             $fileformat = end(explode('.', $_FILES['audio']['name']));
             if ($fileformat != "mp3") {
-                $dataError['WrongFormat'] = "Invalid file format : $fileformat. mp3 expected.";
+                $dataError['WrongFormat'] = "Invalid file format : Got <.$fileformat> while <mp3> was expected.";
             }
         }
 
@@ -103,7 +103,12 @@ class ControlAdmin
             $dataError['InternalError'] = "Problem encountered while copying files. Please try again.";
         }
 
-        require(Config::getVues()['default']);
+        if(empty($dataError)){
+            require(Config::getVues()['default']);
+        }
+        else{
+            require Config::getVuesErreur()['default'];
+        }
     }
 
 }

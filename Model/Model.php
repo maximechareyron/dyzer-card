@@ -63,7 +63,7 @@ class Model
     public static function getLatestID()
     {
         $gw = new MusicGateway(Config::createConnection());
-        return $gw->getLatestID();
+        return $gw->getLatestID()[0][0];
     }
 
     /**
