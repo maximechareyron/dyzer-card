@@ -140,7 +140,9 @@ class VueHtmlUtils
 
     public static function getHTML_MusiqueDetail($musique)
     {
-        $htmlCode = "\t<div class=\"thumbnail\">\n";
+        $htmlCode = "<div class=\"row\">\n";
+        $htmlCode .= "<div class=\"col-sm-7 col-md-5\">\n";
+        $htmlCode .= "\t<div class=\"thumbnail\">\n";
         $htmlCode .= "\t\t<img src=\"$musique->coverPath\" alt=\"...\">\n";
         $htmlCode .= "\t</div>\n";
         $htmlCode .= "\t<div class=\"caption\">\n";
