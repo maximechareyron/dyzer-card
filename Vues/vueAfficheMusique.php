@@ -10,8 +10,8 @@
 
         <!-- blockblack -->
         <div class="blockblack">
-                    <?=DyzerCard\Vues\VueHtmlUtils::getHTML_MusiqueDetail($musique);?>
-                    <?=DyzerCard\Vues\VueHtmlUtils::getHTML_Commentaire($commentaires);?>
+            <?=DyzerCard\Vues\VueHtmlUtils::getHTML_MusiqueDetail($music);?>
+            <?=DyzerCard\Vues\VueHtmlUtils::getHTML_Commentaire($commentaires);?>
         </div>
         <!-- blockblack -->
 

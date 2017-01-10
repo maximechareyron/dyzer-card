@@ -8,6 +8,9 @@ use DyzerCard\Auth\ModelUser;
 use DyzerCard\Auth\SessionHandler;
 use DyzerCard\Auth\ValidationRequest;
 use DyzerCard\Config\Config;
+use DyzerCard\Config\Sanitize;
+use DyzerCard\Config\Validation;
+use DyzerCard\Model\Model;
 
 class ControlVisitor
 {
@@ -82,6 +85,18 @@ class ControlVisitor
         } else {
             // On affiche la page d'authentification, avec les erreurs.
             require(Config::getVues()["pageAuth"]);
+        }
+    }
+
+    public static function afficherDetailTitre(){
+        global $dataError;
+        if(Validation::validateItem($_GET['musicID'], "int"))
+        {
+            $titleID=Sanitize::sanitizeItem($_GET['musicID'], "int");
+            $music= Model::getMusicByID($_GET['musicID']);
+            require(Config::getVues()["afficheMusique"]);
+        } else{
+            $dataError["InvalidMusicID"]="The requested MusicID is invalid.";
         }
     }
 }

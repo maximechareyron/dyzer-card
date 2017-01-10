@@ -111,6 +111,6 @@ class MusicGateway
         if (!$res) {
             $dataError['persistance'] = "Query could not be executed." . " Music ID may not exist.";
         }
-        return $res;
+        return $this->dbcon->getResults();
     }
 }
