@@ -159,4 +159,17 @@ class ControlAdmin
         }
     }
 
+
+    public static function deleteTitle(){
+        global $dataError;
+        $s=SessionHandler::getInstance();
+        if ($s->role != 'admin') {
+            require(Config::getVues()['pageAuth']);
+            return;
+        }
+        
+
+
+    }
+
 }
