@@ -13,9 +13,6 @@
         </div>
     </div>-->
 
-
-
-
     <?php
     switch($formToDisplay){
         case 'select_album':

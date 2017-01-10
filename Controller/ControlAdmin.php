@@ -2,8 +2,8 @@
 
 namespace DyzerCard\Controller;
 
-use DyzerCard\Auth\ModelUser;
 use DyzerCard\Auth\SessionHandler;
+use DyzerCard\Auth\ValidationRequest;
 use DyzerCard\Config\Config;
 use DyzerCard\Config\Sanitize;
 use DyzerCard\Config\Validation;
@@ -12,7 +12,9 @@ use DyzerCard\Model\Model;
 
 class ControlAdmin
 {
-
+    /**
+     * @brief Affiche la vue d'ajout d'un titre
+     */
     public static function addTitle()
     {
         global $dataError;
@@ -33,6 +35,7 @@ class ControlAdmin
             }
         }
 
+        // Si l'utilisateur n'a pas choisi d'album
         if(!isset($albumID)){
             $formToDisplay='select_album';
             $AlbumsList=Model::getAllAlbumsTitles();
@@ -42,6 +45,10 @@ class ControlAdmin
         require(Config::getVues()['addTitle']);
     }
 
+    /**
+     * @brief Valide la saisie d'un titre, et réalise l'ajout en BD
+     * Affiche les erreurs en cas de problème de saisie.
+     */
     public static function validateTitle()
     {
         global $dataError;
@@ -50,26 +57,15 @@ class ControlAdmin
             require(Config::getVues()['pageAuth']);
             return;
         }
-
-        $title = Sanitize::sanitizeItem($_POST["title"], "string");
-        if ($title === false) {
-            $dataError['InvalidTitle'] = "The title of the song must be a simple string.";
-        }
-        $artist = Sanitize::sanitizeItem($_POST["artist"], "string");
-        if ($artist === false) {
-            $dataError['InvalidArtist'] = "The artist of the song must be a simple string.";
-        }
-        if (!Validation::validateItem($_POST['year'], "int")) {
-            $dataError['InvalidYear'] = "The year must be a number.";
-        } else {
-            $year = Sanitize::sanitizeItem($_POST['year'], "int");
-        }
-        if (!Validation::validateItem($_POST['albumID'], "int")) {
-            $dataError['InvalidAlbumID'] = "The albumID is a required field and must be a number";
-        } else {
-            $albumID = Sanitize::sanitizeItem($_POST['albumID'], "int");
+        $res=ValidationRequest::validationTitle($albumID);
+        if(!$res){
+            var_dump($res);
+            $formToDisplay='add_title';
+            require(Config::getVues()["addTitle"]);
+            return;
         }
 
+        /*
         // Si pas de pochette d'album pour $albumID
         if (isset($albumID) && !file_exists(Music::getFullPathCover($albumID))) {
             // Si pas de fichier uploadé ou fichier non reçu :
@@ -89,34 +85,9 @@ class ControlAdmin
                 }
             }
         }
+        */
 
-        // Si pas de fichier uploadé ou fichier non reçu :
-        // Pour que la copie fonctionne, il faut que apache ait les droits d'écriture sur le répertoire...
-        /** Attention, par défaut, php limite la taille d'upload des fichiers à 2M. Cela peut poser
-         * problème pour les fichiers audios. Modifier la valeur de upload_max_filesize dans le php.ini pour
-         * remédier à ce problème. */
-
-        $filename = $_FILES['audio']['tmp_name'];
-        if (empty($_FILES['audio']) || !is_uploaded_file($filename)) {
-            $dataError['InvalidAudioFile'] = "No audio file were found. Please upload one.";
-            $dataError['Sizefile'] = "If you did upload an audio file, please check that its size does not exceeds " . ini_get('upload_max_filesize') . ".";
-        } // Le fichier a été correctement uploadé
-        else {
-            // Si le fichier n'a pas la bonne extension chez le client
-            $fileformat = end(explode('.', $_FILES['audio']['name']));
-            if ($fileformat != "mp3") {
-                $dataError['WrongFormat'] = "Invalid file format : Got <.$fileformat> while <mp3> was expected.";
-            }
-        }
-
-        // Si il y a des erreurs
-        if (!empty($dataError)) {
-            $formToDiplay='add_title';
-            require(Config::getVues()["addTitle"]);
-            return;
-        }
-        $music = new Music("", $title, $artist, $year, 0, 0, $albumID, "");
-        Model::addTitle($music);
+        Model::addTitle($res);
         if (!empty($dataError)) {
             require Config::getVuesErreur()['default'];
             return;
@@ -127,12 +98,13 @@ class ControlAdmin
             require Config::getVuesErreur()['default'];
         }
 
+        $filename = $_FILES['audio']['tmp_name'];
         if (!move_uploaded_file($filename, Music::getFullPathAudio($idMusic))) {
             $dataError['InternalError'] = "Problem encountered while copying files. Please try again.";
         }
 
         if(empty($dataError)){
-            require(Config::getVues()['default']);
+            FrontController::Reinit();
         }
         else{
             require Config::getVuesErreur()['default'];

@@ -45,6 +45,7 @@ class ControlVisitor
                 } // Sinon, on affiche la page d'erreur par défaut
                 else {
                     FrontController::Reinit();
+                    return;
                 }
             } // Echec de la requête de création de l'utilisateur
             else {
