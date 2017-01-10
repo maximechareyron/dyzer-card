@@ -113,7 +113,7 @@ class FrontController
         }
     }
 
-    function Reinit()
+    public static function Reinit()
     {
         global $dataError;
         $musiques = Model::getTopTen();

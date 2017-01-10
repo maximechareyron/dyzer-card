@@ -17,24 +17,27 @@ class ControlAdmin
     {
         global $dataError;
         $s=SessionHandler::getInstance();
+
+        //Vérification du rôle
         if ($s->role != 'admin') {
             require(Config::getVues()['pageAuth']);
             return;
         }
-        if(isset($_POST['albumID'])){
-            if (Validation::validateItem($_POST['albumID'], "int")) {
-                $s->albumID=$_POST['albumID'];
-            }
-            else{
-                $dataError['InvalidAlbumID']="The album ID must be a number.";
+
+        // Si l'utilisateur a déjà choisi un album :
+        if(isset($_POST['albumID'])) {
+            if (!Validation::validateItem($_POST['albumID'], "int")) {
+                $dataError['InvalidAlbumID'] = "The album ID must be a number.";
+            } else {
+                $albumID = Sanitize::sanitizeItem($_POST['albumID'], "int");
             }
         }
 
-        if(empty($s->albumToAdd)){
+        if(!isset($albumID)){
             $formToDisplay='select_album';
             $AlbumsList=Model::getAllAlbumsTitles();
         }else{
-            $formToDisplay='titre';
+            $formToDisplay='add_title';
         }
         require(Config::getVues()['addTitle']);
     }
@@ -42,6 +45,12 @@ class ControlAdmin
     public static function validateTitle()
     {
         global $dataError;
+        $s=SessionHandler::getInstance();
+        if ($s->role != 'admin') {
+            require(Config::getVues()['pageAuth']);
+            return;
+        }
+
         $title = Sanitize::sanitizeItem($_POST["title"], "string");
         if ($title === false) {
             $dataError['InvalidTitle'] = "The title of the song must be a simple string.";
@@ -102,6 +111,7 @@ class ControlAdmin
 
         // Si il y a des erreurs
         if (!empty($dataError)) {
+            $formToDiplay='add_title';
             require(Config::getVues()["addTitle"]);
             return;
         }

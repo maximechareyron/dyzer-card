@@ -44,7 +44,7 @@ class ControlVisitor
                     require(Config::getVues()["visitorAuth"]);
                 } // Sinon, on affiche la page d'erreur par défaut
                 else {
-                    require(Config::getVuesErreur()['default']);
+                    FrontController::Reinit();
                 }
             } // Echec de la requête de création de l'utilisateur
             else {
@@ -76,10 +76,10 @@ class ControlVisitor
         $role = Authentication::checkAndInitiateSession($email, $password, $dataError);
         // Si pas d'erreur
         if (empty($dataError)) {
-            require(Config::getVues()["default"]);
+            //FrontController::Reinit();
+            FrontController::Reinit();
         } else {
             // On affiche la page d'authentification, avec les erreurs.
-            var_dump($_POST);
             require(Config::getVues()["pageAuth"]);
         }
     }

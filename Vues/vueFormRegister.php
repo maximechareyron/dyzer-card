@@ -11,9 +11,11 @@
     <!--Form Starts-->
     <div class="spacer">
         <div class="contactform center">
-            <h3><span class="glyphicon glyphicon-envelope"></span> Sign Up !</h3>
+            <p class="spacer">
+                <h5><span class="glyphicon glyphicon-envelope"></span>Sign Up !</h5>
+            </p>
             <div class="row">
-                <div class="col-sm-6 col-sm-offset-3 ">
+                <div class="col-sm-6 col-sm-offset-3">
                     <form method="post" action="?action=validateRegister">
                         <input type="text" placeholder="email" name="email" required>
                         <input type="password" placeholder="password" name="password" required>

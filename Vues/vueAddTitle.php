@@ -7,11 +7,13 @@
     <!--Errors display Ends-->
 
     <!--Contact Starts-->
-    <div class="spacer">
+   <!-- <div class="spacer">
         <div class="col-sm-6 col-sm-offset-3">
             <h2 class="text-center">Add a music</h2>
         </div>
-    </div>
+    </div>-->
+
+
 
 
     <?php
@@ -19,8 +21,10 @@
         case 'select_album':
             require 'forms/formSelectAlbum.php';
             break;
-        default:
+        case 'add_title':
             require 'forms/formAddTitle.php';
+            break;
+        default:
     }
     ?>
 

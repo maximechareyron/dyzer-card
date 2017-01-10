@@ -10,7 +10,6 @@ class ControlVisitorAuth
     public static function logout()
     {
         Authentication::disconnection();
-        //Changement de l'action
-        require(Config::getVues()['default']);
+        FrontController::Reinit();
     }
 }
