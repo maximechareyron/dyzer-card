@@ -93,15 +93,13 @@ class Model
         return $gw->removeTitle($music_id);
     }
     
-    public static function getTitle($musicID)
+    public static function getTitleMusic($musicID)
     {
         $gw = new MusicGateway(Config::createConnection());
         $res = $gw->getByID($musicID);
         if(!empty($res)){
             $tab=array();
-            foreach ($res as $l){
-                array_push($tab, array($l['auteur'], $l['texte']));
-            }
+                array_push($tab, array($res['idmusique'], $res['titre'], $res['artiste'], $res['annee'], $res['avisfav'], $res['avisdefav'], $res['album_id'], $res['dateMaj']));
             return $tab;
         }
         return $res;
