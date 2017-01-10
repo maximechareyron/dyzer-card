@@ -113,12 +113,13 @@ class Model
 
     public static function getComments($musicID)
     {
-        $gw = new MusicGateway(Config::createConnection());
-        $res = $gw->getByID($musicID);
+        $gw = new CommentGateway(Config::createConnection());
+        $res = $gw->getComments($musicID);
+        var_dump($res);
         if(!empty($res)){
             $tab=array();
             foreach ($res as $l){
-                array_push($tab, array($l['auteur'], $l['texte']));
+                array_push($tab, new Commentaire($l['idmusique'], $l['iduser'], $l['date'], $l['text']));
             }
             return $tab;
         }
@@ -129,6 +130,12 @@ class Model
     {
         $gw = new AlbumGateway(Config::createConnection());
         return $gw->addAlbum($title);
+    }
+
+    public static function addComment($musicID,$iduser,$text)
+    {
+        $gw = new CommentGateway(Config::createConnection());
+        return $gw->addTitle($music);
     }
 }
 

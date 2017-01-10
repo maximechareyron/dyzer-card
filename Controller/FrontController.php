@@ -81,7 +81,10 @@ class FrontController
                 case "detailTitre": // Afficher le détail d'un titre
                     ControlVisitor::afficherDetailTitre();
                     break;
+                case "addComment":
 
+                    ControlVisitorAuth::addComment();
+                    break;
                 case "logout": // Se déconnecter
                     ControlVisitorAuth::logout();
                     break;
