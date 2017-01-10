@@ -76,6 +76,13 @@ class FrontController
     */
                     // 4) actions accessibles aux administrateurs et aux utilisateurs authentifiés
                 case "detailTitre": // Afficher le détail d'un titre
+                    global $dataError;
+                    /*if(isset($_GET['musicID']))
+                    {
+                        $musique = Model::getbyID($_GET['musicID']);
+                        require(Config::getVues()["afficheMusique"]);
+                    }*/
+                    break;
                 case "logout": // Se déconnecter
                     ControlVisitorAuth::logout();
                     break;
