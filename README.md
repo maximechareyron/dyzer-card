@@ -19,7 +19,7 @@ On considère différentes parties:
     
 * La partie "**informations sur un titre**". Elle permet de consulter tout ce qui concerne un titre :
   * Le nom du titre, la durée d'écoute ;
-  * Les avis obtenus, la période durant laquelle il ou elle a été mis su le site, les 3 derniers commentaires postés par les visieurs ;
+  * Les avis obtenus, la période durant laquelle il ou elle a été mis sur le site, les 3 derniers commentaires postés par les visiteurs ;
   * _Des infos sur l'album, le nom et la couverture de l'album, l'artiste qui l'a fait, l'année de parution... (falcultatif)_.
 
 * La partie "**administrateur**" permet :
