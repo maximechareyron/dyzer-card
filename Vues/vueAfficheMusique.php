@@ -2,16 +2,11 @@
 
     <!-- overlay -->
     <div class="container overlay">
-        <br/>
-        <br/>
-        <br/>
-        <br/><br/><br/>
-
 
         <!-- blockblack -->
-        <div class="blockblack">
+        <div class="musicblock">
             <?=DyzerCard\Vues\VueHtmlUtils::getHTML_MusiqueDetail($music);?>
-            <?=DyzerCard\Vues\VueHtmlUtils::getHTML_Commentaire($commentaires);?>
+            <?/*=DyzerCard\Vues\VueHtmlUtils::getHTML_Commentaire($commentaires);*/?>
         </div>
         <!-- blockblack -->
 
