@@ -116,7 +116,6 @@ class Model
     {
         $gw = new CommentGateway(Config::createConnection());
         $res = $gw->getComments($musicID);
-        var_dump($res);
         if(!empty($res)){
             $tab=array();
             foreach ($res as $l){
