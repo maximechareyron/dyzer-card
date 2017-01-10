@@ -9,7 +9,7 @@
 
                 <div class="col-sm-6 col-md-4">
                     <div class="thumbnail">
-                        <img src="<?=DyzerCard\Config\Config::getResources()['logo']?>" alt="...">
+                        <img src="<?= DyzerCard\Config\Config::getResources()['logo'] ?>" alt="...">
                     </div>
                     <div class="caption">
                         <h1>Formidable</h1>
@@ -31,17 +31,11 @@
     <!-- overlay -->
 
 
-
-
-
-
-
-
     <div class="blockblack">
 
         <div class="col-sm-12 col-md-12">
             <div class="thumbnail">
-                <img src="<?=DyzerCard\Config\Config::getResources()['logo']?>" alt="...">
+                <img src="<?= DyzerCard\Config\Config::getResources()['logo'] ?>" alt="...">
                 <div class="caption">
                     <h3>Formidable</h3>
                     <p>Ivre, il se promène dans la rue, la réaction des passants vont vous étonnés</p>

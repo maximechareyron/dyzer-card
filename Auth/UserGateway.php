@@ -54,10 +54,10 @@ class UserGateway
             ':passwd' => array($inputArray['password'], \PDO::PARAM_STR),
             ':role' => array($inputArray['role'], \PDO::PARAM_STR)
         );
-        try{
+        try {
             $res = $this->dbcon->prepareAndExecuteQuery($query, $tab);
-        } catch (\Exception $e){
-            $dataError['db']=$e->getMessage();
+        } catch (\Exception $e) {
+            $dataError['db'] = $e->getMessage();
         }
         if (!$res) {
             $dataError['persistance'] = "Query could not be executed. Login may already exist.";

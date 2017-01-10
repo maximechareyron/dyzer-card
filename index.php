@@ -29,7 +29,7 @@ require_once($rootDirectory . '/Config/Autoload.php');
 DyzerCard\Config\Autoload::load_PSR_4('DyzerCard\\');
 
 // Quelques variables globales
-$sessionOK=false;
+$sessionOK = false;
 $dataError = array();
 //Création de l'instance du frontController :
 $controller = new DyzerCard\Controller\FrontController();

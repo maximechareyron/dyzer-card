@@ -43,8 +43,9 @@ class Model
     /**
      * @return bool|mixed Id de la dernière musique ajoutée ou false.
      */
-    public static function getLatestID(){
-        $gw=new MusicGateway(Config::createConnection());
+    public static function getLatestID()
+    {
+        $gw = new MusicGateway(Config::createConnection());
         return $gw->getLatestID();
     }
 

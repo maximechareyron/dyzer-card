@@ -45,7 +45,8 @@ class Validation
         return $ret;
     }
 
-    public static function validateItem($item, $type){
+    public static function validateItem($item, $type)
+    {
         return filter_var($item, self::getValidateFilter($type));
     }
 }

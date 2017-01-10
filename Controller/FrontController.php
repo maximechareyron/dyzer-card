@@ -26,7 +26,7 @@ class FrontController
     {
         try {
             // L'utilisateur est il identifié ?
-            $sess=SessionHandler::getInstance();
+            $sess = SessionHandler::getInstance();
 
             // Récupération de l'action
             $action = Sanitize::sanitizeItem($_REQUEST['action'], "string");
@@ -66,15 +66,15 @@ class FrontController
                 // case "editTitle": //Modifier les informations d'un titre
                 case "deleteTitle": // Supprimer un titre
                     // 3. b) concernant les commentaires :
-                /*case "deleteComment": // Supprimer un commentaire
-                    if ($role == "admin") {
-                        $adminCtrl = new ControleurAdmin($action);
-                    } else {
-                        require(Config::getVues()["authentication"]);
-                    }
-                    break;
-*/
-                // 4) actions accessibles aux administrateurs et aux utilisateurs authentifiés
+                    /*case "deleteComment": // Supprimer un commentaire
+                        if ($role == "admin") {
+                            $adminCtrl = new ControleurAdmin($action);
+                        } else {
+                            require(Config::getVues()["authentication"]);
+                        }
+                        break;
+    */
+                    // 4) actions accessibles aux administrateurs et aux utilisateurs authentifiés
                 case "detailTitre": // Afficher le détail d'un titre
                 case "logout": // Se déconnecter
                     ControlVisitorAuth::logout();
@@ -93,15 +93,15 @@ class FrontController
             }
         } catch (\Exception $e) {
             global $dataError;
-            $dataError['Exception']=$e->getMessage();
+            $dataError['Exception'] = $e->getMessage();
             require(Config::getVuesErreur()["default"]);
-        } catch (\PDOException $e){
+        } catch (\PDOException $e) {
             global $dataError;
-            $dataError['PDOException']=$e->getMessage();
+            $dataError['PDOException'] = $e->getMessage();
             require(Config::getVuesErreur()["default"]);
-        } catch (\Error $e){
+        } catch (\Error $e) {
             global $dataError;
-            $dataError['PHPError']=$e->getMessage();
+            $dataError['PHPError'] = $e->getMessage();
             require(Config::getVuesErreur()["default"]);
         }
     }

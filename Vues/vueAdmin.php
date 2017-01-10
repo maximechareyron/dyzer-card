@@ -7,7 +7,7 @@
 <h1>DyzerCard</h1>
 
 <?php
-echo "ID de session  :".session_id()."<br/>";
+echo "ID de session  :" . session_id() . "<br/>";
 var_dump($_COOKIE);
 var_dump($_SESSION);
 if (isset($musiques)) {

@@ -48,11 +48,12 @@ class MusicGateway
     /**
      * @return bool|mixed Id de la dernière musique ajoutée ou false.
      */
-    public function getLatestID(){
+    public function getLatestID()
+    {
         global $dataError;
         $query = 'SELECT MAX(idmusique) FROM musique';
         $res = $this->dbcon->prepareAndExecuteQuery($query);
-        if(!$res){
+        if (!$res) {
             $dataError['database'] = "Unable to recover music ID";
             return $res;
         }
@@ -73,10 +74,10 @@ class MusicGateway
             ':artiste' => array($title->artiste, \PDO::PARAM_STR),
             ':album_id' => array($title->album_id, \PDO::PARAM_INT)
         );
-        try{
+        try {
             $res = $this->dbcon->prepareAndExecuteQuery($query, $tab);
-        }catch(\Exception $e){
-            $dataError['db']=$e->getMessage();
+        } catch (\Exception $e) {
+            $dataError['db'] = $e->getMessage();
         }
         if (!$res) {
             $dataError['database'] = "Title could not be added to database.";

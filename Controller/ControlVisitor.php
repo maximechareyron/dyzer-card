@@ -29,10 +29,10 @@ class ControlVisitor
         ValidationRequest::validationLogin($dataError, $email, $password);
         // Si e-mail et mot de passe de la bonne forme :
         if (empty($dataError)) {
-            $dataUser=array(
-                'login'=>$email,
-                'password'=>$password,
-                'role'=>'visitor'
+            $dataUser = array(
+                'login' => $email,
+                'password' => $password,
+                'role' => 'visitor'
             );
             ModelUser::createUser($dataError, $dataUser);
             var_dump($dataError);
@@ -65,8 +65,8 @@ class ControlVisitor
     public static function validateAuth()
     { // Valider l'authentification
         global $dataError;
-        $s=SessionHandler::getInstance();
-        if(isset($s->role)){
+        $s = SessionHandler::getInstance();
+        if (isset($s->role)) {
             require(Config::getVues()['default']);
             return;
         }
@@ -76,7 +76,7 @@ class ControlVisitor
         $role = Authentication::checkAndInitiateSession($email, $password, $dataError);
         // Si pas d'erreur
         if (empty($dataError)) {
-                require(Config::getVues()["default"]);
+            require(Config::getVues()["default"]);
         } else {
             // On affiche la page d'authentification, avec les erreurs.
             var_dump($_POST);

@@ -3,13 +3,12 @@
 // Source : cours R. Malgouyres, code Source 13.7
 
 namespace DyzerCard\Auth;
+
 use DyzerCard\Config\Sanitize;
-use DyzerCard\Config\Validation;
 
 /**
  * @brief Permet d'initier une session après saisie du login/password.
  * Permet aussi de restaurer la session d'un utilisateur déjà authentifié. */
-
 class Authentication
 {
 
@@ -28,9 +27,9 @@ class Authentication
         if ($role === false) {
             return $role;
         }
-        $s=SessionHandler::getInstance();
-        $s->email=Sanitize::sanitizeItem($email, "email");
-        $s->role=Sanitize::sanitizeItem($role, "string");
+        $s = SessionHandler::getInstance();
+        $s->email = Sanitize::sanitizeItem($email, "email");
+        $s->role = Sanitize::sanitizeItem($role, "string");
         return $role;
     }
 
@@ -39,8 +38,8 @@ class Authentication
     {
         global $sessionOK;
         SessionUtils::endSession();
-        setcookie("PHPSESSID", "", time()-1);
-        $sessionOK=false;
+        setcookie("PHPSESSID", "", time() - 1);
+        $sessionOK = false;
     }
 }
 
