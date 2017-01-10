@@ -90,56 +90,108 @@ class VueHtmlUtils
     public static function getHTML_RoleAuthentication()
     {
         $htmlCode = "<ul class=\"nav navbar-nav navbar-right\">\n";
-        $htmlCode .= "<li>\n";
-        switch ($_SESSION['role']) {
+        $htmlCode .= "\t<li>\n";
+        switch($_SESSION['role'])
+        {
 
             case 'admin':
-                $htmlCode .= "<a>\n";
-                $htmlCode .= "<span class=\"glyphicon glyphicon-user\">\n";
-                $htmlCode .= "</span> Logged as Admin\n";
-                $htmlCode .= "</a>\n";
-                $htmlCode .= "<li>\n";
-                $htmlCode .= "<a href=\"?action=logout\">\n";
-                $htmlCode .= "<span class=\"glyphicon glyphicon-log-out\">\n";
-                $htmlCode .= "</span> Sign out\n";
-                $htmlCode .= "</a>\n";
-                $htmlCode .= "</li>\n";
-
+                $htmlCode .= "\t\t<a>\n";
+                $htmlCode .= "\t\t\t<span class=\"glyphicon glyphicon-user\">\n";
+                $htmlCode .= "\t\t\t</span> Log as Admin\n";
+                $htmlCode .= "\t\t</a>\n";
                 break;
 
 
-            case 'visitor':
-                $htmlCode .= "<a>\n";
-                $htmlCode .= "<span class=\"glyphicon glyphicon-user\">\n";
-                $htmlCode .= "</span> Logged as Visitor\n";
-                $htmlCode .= "</a>\n";
-                $htmlCode .= "</li>\n";
-                $htmlCode .= "<li>\n";
-                $htmlCode .= "<a href=\"?action=logout\">\n";
-                $htmlCode .= "<span class=\"glyphicon glyphicon-log-out\">\n";
-                $htmlCode .= "</span> Sign out\n";
-                $htmlCode .= "</a>\n";
+            case 'user':
+                $htmlCode .= "\t\t<a href=\"?action=logout\">\n";
+                $htmlCode .= "\t\t\t<span class=\"glyphicon glyphicon-log-in\">\n";
+                $htmlCode .= "\t\t\t</span> Deconnexion\n";
+                $htmlCode .= "\t\t</a>\n";
+                $htmlCode .= "\t</li>\n";
+                $htmlCode .= "\t<li>\n";
+                $htmlCode .= "\t\t<a>\n";
+                $htmlCode .= "\t\t\t<span class=\"glyphicon glyphicon-log-in\">\n";
+                $htmlCode .= "\t\t\t</span> Log as Visitor\n";
+                $htmlCode .= "\t\t</a>\n";
                 break;
 
 
             default:
-                $htmlCode .= "<a id=\"signup\" href=\"?action=register\">";
-                $htmlCode .= "<span class=\"glyphicon glyphicon-log-in\">\n";
-                $htmlCode .= "</span> Sign up !\n";
-                $htmlCode .= "</a>\n";
-                $htmlCode .= "</li>\n";
-                $htmlCode .= "<li>\n";
-                $htmlCode .= "<a id=\"signin\" href=\"?action=login\">\n";
-                $htmlCode .= "<span class=\"glyphicon glyphicon-log-in\">\n";
-                $htmlCode .= "</span> Sign in\n";
-                $htmlCode .= " </a>\n";
+                $htmlCode .= "\t\t<a id=\"signup\" href=\"?action=register\">";
+                $htmlCode .= "\t\t\t<span class=\"glyphicon glyphicon-log-in\">\n";
+                $htmlCode .= "\t\t\t</span> Sign up !\n";
+                $htmlCode .= "\t\t</a>\n";
+                $htmlCode .= "\t</li>\n";
+                $htmlCode .= "\t<li>\n";
+                $htmlCode .= "\t\t<a id=\"signin\" href=\"?action=login\">\n";
+                $htmlCode .= "\t\t\t<span class=\"glyphicon glyphicon-log-in\">\n";
+                $htmlCode .= "\t\t\t</span> Sign in\n";
+                $htmlCode .= "\t\t</a>\n";
                 break;
 
         }
 
-        $htmlCode .= "</li>\n";
+        $htmlCode .= "\t</li>\n";
         $htmlCode .= "</ul>\n";
 
+
+        return $htmlCode;
+    }
+
+    public static function getHTML_MusiqueDetail($musique)
+    {
+        $htmlCode = "\t<div class=\"thumbnail\">\n";
+        $htmlCode .= "\t\t<img src=\"$musique->coverPath\" alt=\"...\">\n";
+        $htmlCode .= "\t</div>\n";
+        $htmlCode .= "\t<div class=\"caption\">\n";
+        $htmlCode .= "\t\t<h1>$musique->titre</h1>\n";
+        $htmlCode .= "\t\t<p class=\"spacer\"><span class=\"glyphicon glyphicon-star-empty\"></span> Artist : $musique->artiste</p>\n";
+        $htmlCode .= "\t\t<p>Year : $musique->annee</p>\n";
+        $htmlCode .= "\t\t<p>\n";
+        $htmlCode .= "\t\t<a id=\"boutonJaime\" href=\"?action=Jaime\" class=\"btn btn-default\" role=\"button\">n";
+        $htmlCode .= "\t\t\t<span class=\"glyphicon glyphicon-thumbs-up\"></span>\n";
+        $htmlCode .= "\t\t\tLike\n";
+        $htmlCode .= "\t\t\t<span class=\"label label-success\">$musique->avisfav</span>\n";
+        $htmlCode .= "\t\t</a>\n";
+        $htmlCode .= "\t\t<a id=\"boutonJaimePas\" href=\"?action=JaimePas\" class=\"btn btn-default\" role=\"button\">\n";
+        $htmlCode .= "\t\t\t<span class=\"glyphicon glyphicon-thumbs-down\"></span>\n";
+        $htmlCode .= "\t\t\tDislike\n";
+        $htmlCode .= "\t\t\t<span class=\"label label-danger\">$musique->avisdefav</span>\n";
+        $htmlCode .= "\t\t</a>\n";
+        $htmlCode .= "\t\t</p>\n";
+        $htmlCode .= "\t\t<span class=\"glyphicon glyphicon-time\"></span> Added on website : $musique->dateMaj\n";
+        $htmlCode .= "\t</div>\n";
+        $htmlCode .= "</div>\n";
+        $htmlCode .= "</div>\n";
+
+        return $htmlCode;
+    }
+
+    public static function getHTML_Commentaire($commentaires)
+    {
+        $htmlCode = "<div class=\"row\">\n";
+        $htmlCode .= "\t<div class=\"col-md-12 spacer\">\n";
+        $htmlCode .= "\t\t<h1>Espace Commentaire :</h1>\n";
+        $htmlCode .= "\t</div>\n";
+        $htmlCode .= "</div>\n";
+        $htmlCode .= "<div class=\"row\">\n";
+        $cpt = 0;
+        foreach($commentaires as $subCom) {
+            $htmlCode .= "\t<div class=\"col-md-4 spacer\">\n";
+            $htmlCode .= "\t\t<p>mdr jpp tro for</p>\n";
+            $htmlCode .= "\t\t<p><span class=\"glyphicon glyphicon-user\"></span> Par : Auteur</p>\n";
+            $htmlCode .= "\t</div>\n";
+
+            $cpt++;
+
+            if($cpt==3)
+            {
+                $htmlCode .= "</div>\n";
+                $htmlCode .= "<div class=\"row\">\n";
+
+                $cpt = 0;
+            }
+        }
 
         return $htmlCode;
     }
