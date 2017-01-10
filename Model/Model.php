@@ -30,6 +30,23 @@ class Model
         return $tab;
     }
 
+    public static function getTopTen(){
+        $gw = new MusicGateway(Config::createConnection());
+        $musiques = $gw->getAllTitlesByLike();
+
+        if (empty($musiques)) {
+            return false;
+        }
+        $tab = array();
+        $i=0;
+        foreach ($musiques as $l) {
+            array_push($tab, new Music($l['idmusique'], $l['titre'], $l['artiste'], $l['annee'], $l['avisfav'], $l['avisdefav'], $l['album_id'], $l['datemaj']));
+            $i++;
+            if($i==10) break;
+        }
+        return $tab;
+    }
+
     /**
      * @param $music Music Titre à ajouter
      * @return bool

@@ -20,7 +20,7 @@ class MusicGateway
     public function getAllTitlesByLike()
     {
         global $dataError;
-        $query = 'SELECT * FROM musique ORDER BY avisfav DESC';
+        $query = 'SELECT * FROM musique ORDER BY avisfav DESC, datemaj DESC';
         $res = $this->dbcon->prepareAndExecuteQuery($query);
         if (!$res) {
             $dataError['persistance'] = "No music were found.";

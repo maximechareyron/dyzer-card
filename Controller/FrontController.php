@@ -109,7 +109,7 @@ class FrontController
     function Reinit()
     {
         global $dataError;
-        $musiques = Model::getLatestMusics();
+        $musiques = Model::getTopTen();
         require(Config::getVues()["default"]);
     }
 }
