@@ -63,6 +63,9 @@ class FrontController
                 case "validateTitle": //Validation d'un nouveau titre
                     ControlAdmin::validateTitle();
                     break;
+                case "validateAlbum":
+                    ControlAdmin::validateAlbum();
+                    break;
                 // case "editTitle": //Modifier les informations d'un titre
                 case "deleteTitle": // Supprimer un titre
                     // 3. b) concernant les commentaires :

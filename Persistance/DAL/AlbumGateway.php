@@ -22,5 +22,36 @@ class AlbumGateway{
         }
         return $this->dbcon->getResults();
     }
+
+
+    public function addAlbum($title)
+    {
+        global $dataError;
+        $query = 'INSERT INTO album VALUES(DEFAULT, :titre)';
+        $tab = array(
+            ':titre' => array($title, \PDO::PARAM_STR),
+        );
+        try {
+            $res = $this->dbcon->prepareAndExecuteQuery($query, $tab);
+        } catch (\Exception $e) {
+            $dataError['db'] = $e->getMessage();
+        }
+        if (!$res) {
+            $dataError['database'] = "Title could not be added to database.";
+        }
+        return $res;
+    }
+
+    public function getLatestID()
+    {
+        global $dataError;
+        $query = 'SELECT MAX(idalbum) FROM album';
+        $res = $this->dbcon->prepareAndExecuteQuery($query);
+        if (!$res) {
+            $dataError['database'] = "Unable to recover music ID";
+            return $res;
+        }
+        return $this->dbcon->getResults();
+    }
 }
 

@@ -84,6 +84,15 @@ class Model
     }
 
     /**
+     * @return mixed
+     */
+    public static function getLatestAlbumID()
+    {
+        $gw = new AlbumGateway(Config::createConnection());
+        return $gw->getLatestID()[0]["MAX(idmusique)"];
+    }
+
+    /**
      * @param $music_id int Indentifiant de la musique à supprimer
      * @return bool
      */
@@ -117,6 +126,12 @@ class Model
             return $tab;
         }
         return $res;
+    }
+
+    public static function addAlbum($title)
+    {
+        $gw = new AlbumGateway(Config::createConnection());
+        return $gw->addAlbum($title);
     }
 }
 

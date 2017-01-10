@@ -21,7 +21,11 @@
         case 'add_title':
             require 'forms/formAddTitle.php';
             break;
+        case 'add_album':
+            require 'forms/formAddAlbum.php';
+            break;
         default:
+            echo "Invalid argument : $formToDisplay";
     }
     ?>
 

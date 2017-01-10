@@ -9,7 +9,6 @@
                     <input type="text" placeholder="Publication Year" name="year" required>
                     <input type="text" placeholder="Album ID (<?=$albumID?>)" disabled>
                     <input type="hidden" value="<?=$albumID?>" name="albumID" >
-                    <input type="file" placeholder="Album Cover (filetype : .png)" name="albumCover">
                     <input type="file" placeholder="Music File (filetype : .mp3)" name="audio">
                     <button class="btn btn-warning bgcolor" type="submit">Add title</button>
                 </form>

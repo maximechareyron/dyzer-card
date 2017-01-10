@@ -10,6 +10,7 @@
                             echo "\t<option value='$titreAlbum[0]'>$titreAlbum[1]</option>\n";
                         }
                         ?>
+                        <option value='-1'>-- Ajouter un nouvel album --</option>
                     </select>
                     <div class="spacer">
                         <button class="btn btn-warning bgcolor" type="submit">Select Album</button>
