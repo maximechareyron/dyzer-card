@@ -112,7 +112,7 @@ class Model
         return $music;
     }
 
-    public static function getComments($musicID)
+    public static function getCommentMusic($musicID)
     {
         $gw = new CommentGateway(Config::createConnection());
         $res = $gw->getComments($musicID);

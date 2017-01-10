@@ -97,7 +97,7 @@ class ControlVisitor
         {
             $titleID=Sanitize::sanitizeItem($_GET['musicID'], "int");
             $music= Model::getMusicByID($_GET['musicID']);
-            $comments = Model::getComments($_GET['musicID']);
+            $comments = Model::getCommentMusic($_GET['musicID']);
             require(Config::getVues()["afficheMusique"]);
         } else{
             $dataError["InvalidMusicID"]="The requested MusicID is invalid.";
