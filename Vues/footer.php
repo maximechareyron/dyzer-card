@@ -2,7 +2,7 @@
 <div id="footer">
     <div class="container policeLogo" text-align='center'>
         <span class="glyphicon glyphicon-pencil"></span>
-        De Taxis Du Poët Tanguy & Chareyron Maxime ~ Groupe 4 ~ IUT Informatique ~ 2ème année ~ 2016
+        De Taxis Du Poët Tanguy & Chareyron Maxime ~ Groupe 4 ~ IUT Informatique ~ 2ème année ~ 2016 - 2017
     </div>
 </div>
 <!-- # Footer Ends -->
@@ -23,7 +23,5 @@
 
 <script src="<?= DyzerCard\Config\Config::getResources()['plugins'] ?>" type="text/javascript"></script>
 <script src="<?= DyzerCard\Config\Config::getResources()['bootstrap'] ?>" type="text/javascript"></script>
-
-
 </body>
 </html>

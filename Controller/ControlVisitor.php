@@ -90,6 +90,9 @@ class ControlVisitor
 
     public static function afficherDetailTitre(){
         global $dataError;
+        $s=SessionHandler::getInstance();
+        $role=$s->role;
+        var_dump($role);
         if(Validation::validateItem($_GET['musicID'], "int"))
         {
             $titleID=Sanitize::sanitizeItem($_GET['musicID'], "int");

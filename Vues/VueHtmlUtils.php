@@ -65,14 +65,12 @@ class VueHtmlUtils
             $htmlCode .= "\t\t</a>\n";
             $htmlCode .= "\t</div>\n\n";
             $cpt++;
-
             if ($cpt == 3) {
                 $htmlCode .= "</div>\n";
                 $htmlCode .= "<div class=\"row\">\n";
                 $cpt = 0;
             }
         }
-
         return $htmlCode;
     }
 
@@ -143,7 +141,7 @@ class VueHtmlUtils
 
         $htmlCode .= "<div class=\"col-sm-7 col-md-5\">\n";
         $htmlCode .= "\t<div class=\"thumbnail\">\n";
-        $htmlCode .= "\t\t<img src=\"$musique->coverPath\" alt=\"...\">\n";
+        $htmlCode .= "\t\t<img src=\"$musique->coverPath\" alt=\"Album Thumbnail\" width='500px' height='500px'>\n";
         $htmlCode .= "\t</div>\n";
         $htmlCode .= "</div>\n";
 
@@ -155,22 +153,41 @@ class VueHtmlUtils
         $htmlCode .= "\t\t<p>\n";
         $htmlCode .= "\t\t<a id=\"buttonLike\" href=\"?action=Jaime\" class=\"btn btn-default\" role=\"button\">\n";
         $htmlCode .= "\t\t\t<span class=\"glyphicon glyphicon-thumbs-up\"></span>\n";
-        $htmlCode .= "\t\t\tLike\n";
+        $htmlCode .= "\t\t\tLike \n";
         $htmlCode .= "\t\t\t<span class=\"label label-success\">$musique->avisfav</span>\n";
         $htmlCode .= "\t\t</a>\n";
         $htmlCode .= "\t\t<a id=\"buttonNlike\" href=\"?action=JaimePas\" class=\"btn btn-default\" role=\"button\">\n";
         $htmlCode .= "\t\t\t<span class=\"glyphicon glyphicon-thumbs-down\"></span>\n";
-        $htmlCode .= "\t\t\tDislike\n";
+        $htmlCode .= "\t\t\tDislike \n";
         $htmlCode .= "\t\t\t<span class=\"label label-danger\">$musique->avisdefav</span>\n";
         $htmlCode .= "\t\t</a>\n";
         $htmlCode .= "\t\t</p>\n";
         $htmlCode .= "<audio controls=\"controls\">Your browser doesn't support the <code>audio</code> element.";
-        $htmlCode .= "<source src=\"$musique->musicPath\" type=\"audio/mp3\"></audio><br/>";
+        $htmlCode .= "<source src=\"$musique->musicPath\" type=\"audio/mp3\"></audio><br/><br/>";
         $htmlCode .= "\t\t<span class=\"glyphicon glyphicon-time\"></span> Added on website : $musique->dateMaj\n";
+        $htmlCode .= "<p>";
+        $htmlCode .= self::getHTML_TitleDetailsControls($_SESSION['role'], $musique->musicID);
+        $htmlCode .= "</p>";
+
         $htmlCode .= "\t</div>\n";
         $htmlCode .= "</div>\n";
 
         $htmlCode .= "</div>\n";
+        return $htmlCode;
+    }
+
+    public static function getHTML_TitleDetailsControls($role, $musicID){
+        if($role!='admin') {
+            return "";
+        }
+        //$htmlCode = "<div class=\"row\">\n";
+        $htmlCode = "\t<div class=\"col-sm-7 col-md-5\">\n";
+        $htmlCode .= "<form action=\"?action=deleteTitle\" method=\"post\">";
+        $htmlCode .= "\t<input type=\"hidden\" name=\"musicID\">";
+        $htmlCode .= "\t<button class=\"btn btn-danger btn-lg\" type=\"submit\"><span class=\"glyphicon glyphicon-trash\"></span> Delete this title</button>";
+        $htmlCode .= "</form>";
+        $htmlCode .= "\t</div>\n";
+        //$htmlCode .= "</div>\n";
         return $htmlCode;
     }
 
