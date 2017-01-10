@@ -140,7 +140,7 @@ class ControlAdmin
             require Config::getVuesErreur()['default'];
         }
 
-        // On le copie dans son répertoire en testant:
+        // On copie la couverture d'album dans son répertoire en testant:
         if (!move_uploaded_file($filename, Music::getFullPathCover($idAlbum))) {
             // Pour que la copie fonctionne, il faut que apache ait les droits d'écriture sur le répertoire...
             $dataError['InternalError'] = "Problem encountered while copying files. Please try again.";

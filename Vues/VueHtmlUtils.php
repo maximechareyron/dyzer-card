@@ -91,44 +91,43 @@ class VueHtmlUtils
     {
         $htmlCode = "<ul class=\"nav navbar-nav navbar-right\">\n";
         $htmlCode .= "\t<li>\n";
-        switch($_SESSION['role'])
-        {
-
+        switch ($_SESSION['role']) {
             case 'admin':
-                $htmlCode .= "\t\t<a>\n";
-                $htmlCode .= "\t\t\t<span class=\"glyphicon glyphicon-user\">\n";
-                $htmlCode .= "\t\t\t</span> Log as Admin\n";
-                $htmlCode .= "\t\t</a>\n";
+                $htmlCode .= "<a>\n";
+                $htmlCode .= "<span class=\"glyphicon glyphicon-user\">\n";
+                $htmlCode .= "</span> Logged as Admin\n";
+                $htmlCode .= "</a>\n";
+                $htmlCode .= "<li>\n";
+                $htmlCode .= "<a href=\"?action=logout\">\n";
+                $htmlCode .= "<span class=\"glyphicon glyphicon-log-out\">\n";
+                $htmlCode .= "</span> Sign out\n";
+                $htmlCode .= "</a>\n";
+                $htmlCode .= "</li>\n";
                 break;
-
-
-            case 'user':
-                $htmlCode .= "\t\t<a href=\"?action=logout\">\n";
-                $htmlCode .= "\t\t\t<span class=\"glyphicon glyphicon-log-in\">\n";
-                $htmlCode .= "\t\t\t</span> Deconnexion\n";
-                $htmlCode .= "\t\t</a>\n";
-                $htmlCode .= "\t</li>\n";
-                $htmlCode .= "\t<li>\n";
-                $htmlCode .= "\t\t<a>\n";
-                $htmlCode .= "\t\t\t<span class=\"glyphicon glyphicon-log-in\">\n";
-                $htmlCode .= "\t\t\t</span> Log as Visitor\n";
-                $htmlCode .= "\t\t</a>\n";
+            case 'visitor':
+                $htmlCode .= "<a>\n";
+                $htmlCode .= "<span class=\"glyphicon glyphicon-user\">\n";
+                $htmlCode .= "</span> Logged as Visitor\n";
+                $htmlCode .= "</a>\n";
+                $htmlCode .= "</li>\n";
+                $htmlCode .= "<li>\n";
+                $htmlCode .= "<a href=\"?action=logout\">\n";
+                $htmlCode .= "<span class=\"glyphicon glyphicon-log-out\">\n";
+                $htmlCode .= "</span> Sign out\n";
+                $htmlCode .= "</a>\n";
                 break;
-
-
             default:
-                $htmlCode .= "\t\t<a id=\"signup\" href=\"?action=register\">";
-                $htmlCode .= "\t\t\t<span class=\"glyphicon glyphicon-log-in\">\n";
-                $htmlCode .= "\t\t\t</span> Sign up !\n";
-                $htmlCode .= "\t\t</a>\n";
-                $htmlCode .= "\t</li>\n";
-                $htmlCode .= "\t<li>\n";
-                $htmlCode .= "\t\t<a id=\"signin\" href=\"?action=login\">\n";
-                $htmlCode .= "\t\t\t<span class=\"glyphicon glyphicon-log-in\">\n";
-                $htmlCode .= "\t\t\t</span> Sign in\n";
-                $htmlCode .= "\t\t</a>\n";
+                $htmlCode .= "<a id=\"signup\" href=\"?action=register\">";
+                $htmlCode .= "<span class=\"glyphicon glyphicon-log-in\">\n";
+                $htmlCode .= "</span> Sign up !\n";
+                $htmlCode .= "</a>\n";
+                $htmlCode .= "</li>\n";
+                $htmlCode .= "<li>\n";
+                $htmlCode .= "<a id=\"signin\" href=\"?action=login\">\n";
+                $htmlCode .= "<span class=\"glyphicon glyphicon-log-in\">\n";
+                $htmlCode .= "</span> Sign in\n";
+                $htmlCode .= " </a>\n";
                 break;
-
         }
 
         $htmlCode .= "\t</li>\n";
