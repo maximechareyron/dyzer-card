@@ -26,7 +26,11 @@ class Music
         $this->avisfav = $nbLike;
         $this->avisdefav = $nbNLike;
         $this->album_id = $albumID;
-        $this->dateMaj = $dateOnline;
+        if($dateOnline!="") {
+            $d = date_parse($dateOnline);
+            $this->dateMaj = $d['year'] . "-" . $d['month'] . "-" . $d['day'];
+        }
+
 
         if($musicID!="") {
             $this->musicPath = $this->getAudio($musicID);

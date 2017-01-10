@@ -50,11 +50,11 @@ class VueHtmlUtils {
 			$htmlCode .= "\t\t<div class=\"caption\">\n";
 			$htmlCode .= "\t\t\t<h5>".$musique->titre."</h5>\n";
 			$htmlCode .= "\t\t\t<p>Artist : ".$musique->artiste."</p>\n";
-			$htmlCode .= "\t\t\t<p> <span class=\"glyphicon glyphicon-thumbs-up\"></span> : ".$musique->avisfav."\n";
-			$htmlCode .= "\t\t\t<span class=\"glyphicon glyphicon-thumbs-down\" style=\"margin-left: 20px;\"></span> : ".$musique->avisdefav."</p>\n";
-			//$htmlCode .= "\t\t\t<p><a href=\"?action=detailTitre\" class=\"btn\" role=\"button\">Afficher détails</a>\n";
-			//$htmlCode .= "\t\t\t<a href=\"?action=like\" class=\"btn\" role=\"button\">J'aime</a>\n";
-			//$htmlCode .= "\t\t\t<a href=\"?action=nlike\" class=\"btn\" role=\"button\">J'aime pas</a></p>\n";
+			$htmlCode .= "\t\t\t<p>\n";
+            $htmlCode .= "\t\t\t\t<span class=\"glyphicon glyphicon-thumbs-up\"></span> : ".$musique->avisfav."\n";
+            $htmlCode .= "\t\t\t\t<span class=\"glyphicon glyphicon-thumbs-down\" style=\"margin-left: 20px;\"></span> : ".$musique->avisdefav."\n";
+            $htmlCode .= "\t\t\t\t<span class=\"glyphicon glyphicon-time\" style=\"margin-left: 20px;\"></span> : ".$musique->dateMaj."\n";
+            $htmlCode .= "\t\t\t</p>\n";
 			$htmlCode .= "\t\t</div>\n";
 			$htmlCode .= "\t</div>\n";
 			$htmlCode .= "</div>\n\n";
