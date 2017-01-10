@@ -89,9 +89,23 @@ class MusicGateway
     public function removeTitle($music_id)
     {
         global $dataError;
-        $query = 'DELETE FROM musique WHERE idmusique=:id';
+        $query = 'DELETE FROM musique WHERE idmusique=:mudic_id';
         $tab = array(
-            ':id' => array($music_id, \PDO::PARAM_INT)
+            ':music_id' => array($music_id, \PDO::PARAM_INT)
+        );
+        $res = $this->dbcon->prepareAndExecuteQuery($query, $tab);
+        if (!$res) {
+            $dataError['persistance'] = "Query could not be executed." . " Music ID may not exist.";
+        }
+        return $res;
+    }
+
+    public function getByID($music_id)
+    {
+        global $dataError;
+        $query = 'SELECT * from musique WHERE idmusique=:music_id';
+        $tab = array(
+            ':music_id' => array($music_id, \PDO::PARAM_INT)
         );
         $res = $this->dbcon->prepareAndExecuteQuery($query, $tab);
         if (!$res) {
