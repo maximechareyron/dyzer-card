@@ -108,11 +108,17 @@ class Model
 
     public static function getMusicByID($musicID)
     {
+        global $dataError;
         $gw = new MusicGateway(Config::createConnection());
 
-        $res = $gw->getByID($musicID)[0];
-        $music = new Music($res['idmusique'], $res['titre'], $res['artiste'], $res['annee'], $res['avisfav'], $res['avisdefav'], $res['album_id'], $res['datemaj']);
-        return $music;
+        $res = $gw->getMusicByID($musicID)[0];
+
+        if (empty($res)) {
+            $dataError['persistance'] = "Query returned no result." . " Music ID may not exist.";
+            return false;
+        }
+
+        return new Music($res['idmusique'], $res['titre'], $res['artiste'], $res['annee'], $res['avisfav'], $res['avisdefav'], $res['album_id'], $res['datemaj']);
     }
 
     public static function getCommentMusic($musicID)

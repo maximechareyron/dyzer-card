@@ -232,7 +232,14 @@ class VueHtmlUtils
             $htmlCode .= "</div>";
             $htmlCode .= "</div>";
             $htmlCode .= "\t</div>\n";
+        }
 
+        if(empty($commentaires)){
+            $htmlCode .= "<div class=\"panel panel-default\">\n";
+            $htmlCode .= "<div class=\"panel-body\">";
+            $htmlCode .= "\t\t<p>There is no comment yet. Be the first to post !</p>\n";
+            $htmlCode .= "</div>";
+            $htmlCode .= "</div>";
         }
 
         return $htmlCode;

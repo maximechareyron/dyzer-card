@@ -33,7 +33,6 @@
                 <!-- Nav Starts -->
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#home">Home</a></li>
                         <?= DyzerCard\Vues\VueHtmlUtils::getHTML_RoleNavigation(); ?>
                     </ul>
                     <?= DyzerCard\Vues\VueHtmlUtils::getHTML_RoleAuthentication(); ?>

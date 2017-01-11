@@ -104,7 +104,7 @@ class MusicGateway
         return $res;
     }
 
-    public function getByID($music_id)
+    public function getMusicByID($music_id)
     {
         global $dataError;
         $query = 'SELECT * from musique WHERE idmusique=:music_id';
