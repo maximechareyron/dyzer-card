@@ -12,12 +12,6 @@ use DyzerCard\Metier\Music;
  * Initialisation à vide des inputs inexistants */
 class ValidationRequest
 {
-    /** @brief Nettoie une chaîne avec filter_var et FILTER_SANITIZE_STRING */
-    public static function sanitizeString($chaine)
-    {
-        return isset($chaine) ? filter_var($chaine, FILTER_SANITIZE_STRING) : "";
-    }
-
     /** @brief Validation et initialisation des données du login/password
      * à partir des données reçues dans le tableau superglobal $_REQUEST.
      */
@@ -99,8 +93,6 @@ class ValidationRequest
         }
         return new Music("", $title, $artist, $year, 0, 0, $albumID, "");
     }
-
-
 }
 
 ?>
