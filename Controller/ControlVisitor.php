@@ -16,12 +16,14 @@ class ControlVisitor
 {
     public static function register()
     { // Vue d'inscription
-        require(Config::getVues()["pageRegister"]);
+        $formToDisplay='registration';
+        require(Config::getVues()['formView']);
     }
 
     public static function authenticate()
     { // Vue d'authentification
-        require(Config::getVues()["pageAuth"]);
+        $formToDisplay='authentication';
+        require(Config::getVues()['formView']);
     }
 
     public static function validateRegister() // Validation d'inscription
@@ -39,7 +41,8 @@ class ControlVisitor
             );
             ModelUser::createUser($dataUser);
             if (!empty($dataError)) {
-                require(Config::getVuesErreur()["default"]);
+                $formToDisplay='registration';
+                require(Config::getVues()['formView']);
                 return;
             }
             Authentication::checkAndInitiateSession($email, $password, $dataError);
@@ -50,7 +53,8 @@ class ControlVisitor
             FrontController::Reinit();
             return;
         } // E-mail & mot de passe invalides, on affiche les erreurs, puis on affiche le formulaire
-            require(Config::getVues()["pageRegister"]);
+        $formToDisplay='registration';
+        require(Config::getVues()['formView']);
     }
 
     /**
@@ -63,7 +67,7 @@ class ControlVisitor
         global $dataError;
         $s = SessionHandler::getInstance();
         if (isset($s->role)) {
-            require(Config::getVues()['default']);
+            FrontController::Reinit();
             return;
         }
         // Les données seront filtrées par PDO::prepare()
@@ -76,7 +80,8 @@ class ControlVisitor
             FrontController::Reinit();
         } else {
             // On affiche la page d'authentification, avec les erreurs.
-            require(Config::getVues()["pageAuth"]);
+            $formToDisplay='authentication';
+            require(Config::getVues()['formView']);
         }
     }
 

@@ -22,7 +22,8 @@ class ControlAdmin
 
         //Vérification du rôle
         if ($s->role != 'admin') {
-            require(Config::getVues()['pageAuth']);
+            $formToDisplay='authentication';
+            require(Config::getVues()['formView']);
             return;
         }
 
@@ -56,7 +57,8 @@ class ControlAdmin
         global $dataError;
         $s = SessionHandler::getInstance();
         if ($s->role != 'admin') {
-            require(Config::getVues()['pageAuth']);
+            $formToDisplay='authentication';
+            require(Config::getVues()['formView']);
             return;
         }
         $res = ValidationRequest::validationTitle($albumID);
@@ -68,6 +70,7 @@ class ControlAdmin
 
         Model::addTitle($res);
         if (!empty($dataError)) {
+            $formToDisplay = 'add_title';
             require Config::getVues()['addTitle'];
             return;
         }
@@ -90,13 +93,16 @@ class ControlAdmin
         }
     }
 
-
+    /**
+     * Valide la saisie d'un album
+     */
     public static function validateAlbum()
     {
         global $dataError;
         $s = SessionHandler::getInstance();
         if ($s->role != 'admin') {
-            require(Config::getVues()['pageAuth']);
+            $formToDisplay='authentication';
+            require(Config::getVues()['formView']);
             return;
         }
 
@@ -126,6 +132,7 @@ class ControlAdmin
 
         Model::addAlbum($albumTitle);
         if (!empty($dataError)) {
+            $formToDisplay = 'add_album';
             require Config::getVues()['addTitle'];
             return;
         }
@@ -153,13 +160,16 @@ class ControlAdmin
         }
     }
 
-
+    /**
+     * Supprime un titre de la base de données et son fichier en local.
+     */
     public static function deleteTitle()
     {
         global $dataError;
         $s = SessionHandler::getInstance();
         if ($s->role != 'admin') {
-            require(Config::getVues()['pageAuth']);
+            $formToDisplay='authentication';
+            require(Config::getVues()['formView']);
             return;
         }
 

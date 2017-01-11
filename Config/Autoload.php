@@ -17,7 +17,6 @@ namespace DyzerCard\Config;
  * par un appel à spl_autoload_register()                  */
 class Autoload
 {
-
     /** Préfixe principal des namespaces du projet */
     public static $vendorNamespace;
 
