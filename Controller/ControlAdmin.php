@@ -45,7 +45,7 @@ class ControlAdmin
         } else {
             $formToDisplay = 'add_title';
         }
-        require(Config::getVues()['addTitle']);
+        require(Config::getVues()['formView']);
     }
 
     /**
@@ -64,14 +64,14 @@ class ControlAdmin
         $res = ValidationRequest::validationTitle($albumID);
         if (!$res) {
             $formToDisplay = 'add_title';
-            require(Config::getVues()["addTitle"]);
+            require(Config::getVues()["formView"]);
             return;
         }
 
         Model::addTitle($res);
         if (!empty($dataError)) {
             $formToDisplay = 'add_title';
-            require Config::getVues()['addTitle'];
+            require Config::getVues()['formView'];
             return;
         }
         $idMusic = Model::getLatestID();
@@ -126,14 +126,14 @@ class ControlAdmin
 
         if (!empty($dataError)) {
             $formToDisplay = 'add_album';
-            require Config::getVues()['addTitle'];
+            require Config::getVues()['formView'];
             return;
         }
 
         Model::addAlbum($albumTitle);
         if (!empty($dataError)) {
             $formToDisplay = 'add_album';
-            require Config::getVues()['addTitle'];
+            require Config::getVues()['formView'];
             return;
         }
         $idAlbum = Model::getLatestAlbumID();

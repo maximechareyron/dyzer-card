@@ -41,12 +41,8 @@ class Config
         // Répertoire contenant les Vues
         $vueDirectory = $rootDirectory . "Vues/";
         return array(
-            "default" => $vueDirectory . "vueAccueil.php",
-            "formView" => $vueDirectory . "vueAddTitle.php",
-            "pageAuth" => $vueDirectory . "vueFormAuth.php",
-            "pageRegister" => $vueDirectory . "vueFormRegister.php",
-            "visitorAuth" => $vueDirectory . "vueVisitorAuth.php",
-            "addTitle" => $vueDirectory . "vueAddTitle.php",
+            "default" => $vueDirectory . "home.php",
+            "formView" => $vueDirectory . "viewForm.php",
             "afficheMusique" => $vueDirectory . "vueAfficheMusique.php",
             "configAccount" => $vueDirectory . "vueConfigAccount.php",
         );
@@ -60,7 +56,7 @@ class Config
         // Répertoire contenant les Vues d'erreur
         $vueDirectory = $rootDirectory . "Vues/";
         return array(
-            "default" => $vueDirectory . "vueErreurDefault.php"
+            "default" => $vueDirectory . "viewErrors.php"
         );
     }
 

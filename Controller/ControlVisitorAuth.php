@@ -26,7 +26,8 @@ class ControlVisitorAuth
 
         //Vérification du rôle
         if ($s->role != 'visitor' && $s->role != 'admin') {
-            require(Config::getVues()['pageAuth']);
+            $formToDisplay='authentication';
+            require(Config::getVues()['formView']);
             return;
         }
 
@@ -43,7 +44,7 @@ class ControlVisitorAuth
         }
 
         $formToDisplay = "add_comment";
-        require Config::getVues()['addTitle'];
+        require Config::getVues()['formView'];
         return;
     }
 
@@ -52,7 +53,8 @@ class ControlVisitorAuth
         global $dataError;
         $s = SessionHandler::getInstance();
         if ($s->role != 'visitor' && $s->role != 'admin') {
-            require(Config::getVues()['pageAuth']);
+            $formToDisplay='authentication';
+            require(Config::getVues()['formView']);
             return;
         }
 
@@ -70,14 +72,14 @@ class ControlVisitorAuth
 
         $formToDisplay = "add_comment";
         if (!empty($dataError)) {
-            require Config::getVues()['addTitle'];
+            require Config::getVues()['formView'];
             return;
         }
 
 
         Model::addCommentMusic($musicID, $s->email, $content);
         if (!empty($dataError)) {
-            require Config::getVues()['addTitle'];
+            require Config::getVues()['formView'];
             return;
         }
 
@@ -90,7 +92,8 @@ class ControlVisitorAuth
         global $dataError;
         $s = SessionHandler::getInstance();
         if ($s->role != 'admin' && $s->role != 'visitor') {
-            require(Config::getVues()['pageAuth']);
+            $formToDisplay='authentication';
+            require(Config::getVues()['formView']);
             return;
         }
 
@@ -143,7 +146,8 @@ class ControlVisitorAuth
         global $dataError;
         $s = SessionHandler::getInstance();
         if ($s->role != 'visitor') {
-            require(Config::getVues()['pageAuth']);
+            $formToDisplay='authentication';
+            require(Config::getVues()['formView']);
             return;
         }
 
@@ -159,7 +163,7 @@ class ControlVisitorAuth
         }
 
         $formToDisplay = "add_comment";
-        require Config::getVues()['addTitle'];
+        require Config::getVues()['formView'];
         return;
 
     }
@@ -168,7 +172,8 @@ class ControlVisitorAuth
         global $dataError;
         $s = SessionHandler::getInstance();
         if ($s->role != 'admin' && $s->role != 'visitor') {
-            require(Config::getVues()['pageAuth']);
+            $formToDisplay='authentication';
+            require(Config::getVues()['formView']);
             return;
         }
 
@@ -210,8 +215,10 @@ class ControlVisitorAuth
         $s = SessionHandler::getInstance();
         if ($s->role != 'visitor') {
             $dataError['UnreachablePage'] = "You do not have access to this page";
-            require(Config::getVues()['pageAuth']);
+            $formToDisplay='authentication';
+            require(Config::getVues()['formView']);
             return;
+
         }
         ModelUser::deleteUser($s->email);
 
