@@ -41,14 +41,10 @@ class Config
         // Répertoire contenant les Vues
         $vueDirectory = $rootDirectory . "Vues/";
         return array(
-            "default" => $vueDirectory . "vueAccueil.php",
-            "pageAuth" => $vueDirectory . "vueForm.php",
-            "pageRegister" => $vueDirectory . "vueFormRegister.php",
-            "visitorAuth" => $vueDirectory . "vueVisitorAuth.php",
-            "addTitle" => $vueDirectory . "vueAddTitle.php",
+            "default" => $vueDirectory . "home.php",
+            "formView" => $vueDirectory . "viewForm.php",
             "afficheMusique" => $vueDirectory . "vueAfficheMusique.php",
             "configAccount" => $vueDirectory . "vueConfigAccount.php",
-            //"saisieMusiqueUpdate"=>$vueDirectory."vueSaisieMusiqueUpdate.php",
         );
     }
 
@@ -60,7 +56,7 @@ class Config
         // Répertoire contenant les Vues d'erreur
         $vueDirectory = $rootDirectory . "Vues/";
         return array(
-            "default" => $vueDirectory . "vueErreurDefault.php"
+            "default" => $vueDirectory . "viewErrors.php"
         );
     }
 
@@ -104,16 +100,6 @@ class Config
             "plugins" => $javaDirectoryURL . "scripts/plugins.js",
             "script" => $javaDirectoryURL . "scripts/script.js",
         );
-    }
-
-
-    /** @brief Génère 10 chiffres hexa aléatoires (soit 5 octets) */
-    public static function generateRandomId()
-    {
-        // Génération de 5 octets (pseudo-)aléatoires codés en hexa
-        $cryptoStrong = false; // Variable pour le passage par référence
-        $octets = openssl_random_pseudo_bytes(5, $cryptoStrong);
-        return bin2hex($octets);
     }
 }
 

@@ -22,7 +22,8 @@ class ControlAdmin
 
         //Vérification du rôle
         if ($s->role != 'admin') {
-            require(Config::getVues()['pageAuth']);
+            $formToDisplay='authentication';
+            require(Config::getVues()['formView']);
             return;
         }
 
@@ -44,7 +45,7 @@ class ControlAdmin
         } else {
             $formToDisplay = 'add_title';
         }
-        require(Config::getVues()['addTitle']);
+        require(Config::getVues()['formView']);
     }
 
     /**
@@ -56,19 +57,21 @@ class ControlAdmin
         global $dataError;
         $s = SessionHandler::getInstance();
         if ($s->role != 'admin') {
-            require(Config::getVues()['pageAuth']);
+            $formToDisplay='authentication';
+            require(Config::getVues()['formView']);
             return;
         }
         $res = ValidationRequest::validationTitle($albumID);
         if (!$res) {
             $formToDisplay = 'add_title';
-            require(Config::getVues()["addTitle"]);
+            require(Config::getVues()["formView"]);
             return;
         }
 
         Model::addTitle($res);
         if (!empty($dataError)) {
-            require Config::getVues()['addTitle'];
+            $formToDisplay = 'add_title';
+            require Config::getVues()['formView'];
             return;
         }
         $idMusic = Model::getLatestID();
@@ -90,13 +93,16 @@ class ControlAdmin
         }
     }
 
-
+    /**
+     * Valide la saisie d'un album
+     */
     public static function validateAlbum()
     {
         global $dataError;
         $s = SessionHandler::getInstance();
         if ($s->role != 'admin') {
-            require(Config::getVues()['pageAuth']);
+            $formToDisplay='authentication';
+            require(Config::getVues()['formView']);
             return;
         }
 
@@ -120,13 +126,14 @@ class ControlAdmin
 
         if (!empty($dataError)) {
             $formToDisplay = 'add_album';
-            require Config::getVues()['addTitle'];
+            require Config::getVues()['formView'];
             return;
         }
 
         Model::addAlbum($albumTitle);
         if (!empty($dataError)) {
-            require Config::getVues()['addTitle'];
+            $formToDisplay = 'add_album';
+            require Config::getVues()['formView'];
             return;
         }
         $idAlbum = Model::getLatestAlbumID();
@@ -153,13 +160,16 @@ class ControlAdmin
         }
     }
 
-
+    /**
+     * Supprime un titre de la base de données et son fichier en local.
+     */
     public static function deleteTitle()
     {
         global $dataError;
         $s = SessionHandler::getInstance();
         if ($s->role != 'admin') {
-            require(Config::getVues()['pageAuth']);
+            $formToDisplay='authentication';
+            require(Config::getVues()['formView']);
             return;
         }
 

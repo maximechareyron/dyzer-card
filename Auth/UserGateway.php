@@ -1,7 +1,5 @@
 <?php
 
-// source : Cours de R. Malgouyres, Code Source 13.6
-
 namespace DyzerCard\Auth;
 
 use DyzerCard\Persistance\Connection;

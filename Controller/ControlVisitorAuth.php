@@ -26,7 +26,8 @@ class ControlVisitorAuth
 
         //Vérification du rôle
         if ($s->role != 'visitor' && $s->role != 'admin') {
-            require(Config::getVues()['pageAuth']);
+            $formToDisplay='authentication';
+            require(Config::getVues()['formView']);
             return;
         }
 
@@ -43,7 +44,7 @@ class ControlVisitorAuth
         }
 
         $formToDisplay = "add_comment";
-        require Config::getVues()['addTitle'];
+        require Config::getVues()['formView'];
         return;
     }
 
@@ -52,7 +53,8 @@ class ControlVisitorAuth
         global $dataError;
         $s = SessionHandler::getInstance();
         if ($s->role != 'visitor' && $s->role != 'admin') {
-            require(Config::getVues()['pageAuth']);
+            $formToDisplay='authentication';
+            require(Config::getVues()['formView']);
             return;
         }
 
@@ -70,14 +72,14 @@ class ControlVisitorAuth
 
         $formToDisplay = "add_comment";
         if (!empty($dataError)) {
-            require Config::getVues()['addTitle'];
+            require Config::getVues()['formView'];
             return;
         }
 
 
         Model::addCommentMusic($musicID, $s->email, $content);
         if (!empty($dataError)) {
-            require Config::getVues()['addTitle'];
+            require Config::getVues()['formView'];
             return;
         }
 
@@ -90,7 +92,8 @@ class ControlVisitorAuth
         global $dataError;
         $s = SessionHandler::getInstance();
         if ($s->role != 'admin' && $s->role != 'visitor') {
-            require(Config::getVues()['pageAuth']);
+            $formToDisplay='authentication';
+            require(Config::getVues()['formView']);
             return;
         }
 
@@ -106,9 +109,13 @@ class ControlVisitorAuth
 
         if (isset($_POST['author'])) {
             $author=Sanitize::sanitizeItem($_POST['author'], "string");
+            if($s->email != $author){
+                $dataError['insuficientPermissions']="You are not allowed to edit this comment !";
+            }
         }else{
             $dataError['missingAuthor'] = "You need to specify the author of the comment";
         }
+
 
         if (isset($_POST['dateComment'])) {
             $date=Sanitize::sanitizeItem($_POST['dateComment'], "string");
@@ -134,9 +141,65 @@ class ControlVisitorAuth
         ControlVisitor::afficherDetailTitre();
     }
 
-    public static function configAccount(){
+
+    public static function editComment(){
         global $dataError;
         $s = SessionHandler::getInstance();
+        if ($s->role != 'visitor') {
+            $formToDisplay='authentication';
+            require(Config::getVues()['formView']);
+            return;
+        }
+
+        if (Validation::validateItem($_POST['musicID'], "int")) {
+            $musicID = Sanitize::sanitizeItem($_POST['musicID'], "int");
+        } else {
+            $dataError['InvalidMusicID'] = "Wrong music ID.";
+        }
+
+        if (!empty($dataError)) {
+            require Config::getVuesErreur()['default'];
+            return;
+        }
+
+        $formToDisplay = "add_comment";
+        require Config::getVues()['formView'];
+        return;
+
+    }
+
+    public static function validateEditComment(){
+        global $dataError;
+        $s = SessionHandler::getInstance();
+        if ($s->role != 'admin' && $s->role != 'visitor') {
+            $formToDisplay='authentication';
+            require(Config::getVues()['formView']);
+            return;
+        }
+
+        if (isset($_POST['musicID'])) {
+            if (!Validation::validateItem($_POST['musicID'], "int")) {
+                $dataError['InvalidMusicID'] = "The music ID must be a number.";
+            } else {
+                $musicID = Sanitize::sanitizeItem($_POST['musicID'], "int");
+            }
+        } else{
+            $dataError['missingMusicID']="You need to pick a song to delete";
+        }
+
+
+        if (!empty($dataError)) {
+            require Config::getVuesErreur()['Default'];
+            return;
+        }
+
+        Model::editComment($_POST['author'], $musicID, $_POST['dateComment'], $_POST['text']);
+        if(!empty($dataError)){
+            require Config::getVuesErreur()['default'];
+            return;
+        }
+
+        $_GET['musicID']=$musicID;
         if ($s->role != 'visitor') {
             $dataError['UnreachablePage'] = "You do not have access to this page";
             require(Config::getVuesErreur()['default']);
@@ -152,8 +215,10 @@ class ControlVisitorAuth
         $s = SessionHandler::getInstance();
         if ($s->role != 'visitor') {
             $dataError['UnreachablePage'] = "You do not have access to this page";
-            require(Config::getVues()['pageAuth']);
+            $formToDisplay='authentication';
+            require(Config::getVues()['formView']);
             return;
+
         }
         ModelUser::deleteUser($s->email);
 
