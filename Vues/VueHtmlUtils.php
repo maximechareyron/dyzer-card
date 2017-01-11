@@ -206,7 +206,7 @@ class VueHtmlUtils
 
         $htmlCode = "<div class=\"row\">\n";
         $htmlCode .= "\t<div class=\"col-md-4\">\n";
-        $htmlCode .= "\t\t<h1>Espace Commentaires :</h1>\n";
+        $htmlCode .= "\t\t<h1>Comments :</h1>\n";
         $htmlCode .= "\t</div>\n";
         $htmlCode .= "\t<div class=\"col-md-4\">\n";
         $htmlCode .= "<form action=\"?action=addComment\" method=\"post\">";

@@ -152,7 +152,6 @@ class Model
         $gw = new CommentGateway(Config::createConnection());
         return $gw->removeComment($author, $music_id, $date);
     }
-
 }
 
 ?>
