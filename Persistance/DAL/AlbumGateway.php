@@ -4,7 +4,8 @@ namespace DyzerCard\Persistance\DAL;
 
 use DyzerCard\Persistance\Connection;
 
-class AlbumGateway{
+class AlbumGateway
+{
     private $dbcon;
 
     public function __construct(Connection $con)
@@ -12,7 +13,8 @@ class AlbumGateway{
         $this->dbcon = $con;
     }
 
-    public function getAllAlbums(){
+    public function getAllAlbums()
+    {
         global $dataError;
         $query = 'SELECT * FROM album ORDER BY titre ASC';
         $res = $this->dbcon->prepareAndExecuteQuery($query);

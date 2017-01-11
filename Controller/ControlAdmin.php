@@ -18,7 +18,7 @@ class ControlAdmin
     public static function addTitle()
     {
         global $dataError;
-        $s=SessionHandler::getInstance();
+        $s = SessionHandler::getInstance();
 
         //Vérification du rôle
         if ($s->role != 'admin') {
@@ -27,8 +27,8 @@ class ControlAdmin
         }
 
         // Si l'utilisateur a déjà choisi un album :
-        if(isset($_POST['albumID'])) {
-            if(!Validation::validateItem($_POST['albumID'], "int")) {
+        if (isset($_POST['albumID'])) {
+            if (!Validation::validateItem($_POST['albumID'], "int")) {
                 $dataError['InvalidAlbumID'] = "The album ID must be a number.";
             } else {
                 $albumID = Sanitize::sanitizeItem($_POST['albumID'], "int");
@@ -36,14 +36,13 @@ class ControlAdmin
         }
 
         // Si l'utilisateur n'a pas choisi d'album
-        if(!isset($albumID)){
-            $formToDisplay='select_album';
-            $AlbumsList=Model::getAllAlbumsTitles();
-        }else if($albumID==-1){
-            $formToDisplay='add_album';
-        }
-        else{
-            $formToDisplay='add_title';
+        if (!isset($albumID)) {
+            $formToDisplay = 'select_album';
+            $AlbumsList = Model::getAllAlbumsTitles();
+        } else if ($albumID == -1) {
+            $formToDisplay = 'add_album';
+        } else {
+            $formToDisplay = 'add_title';
         }
         require(Config::getVues()['addTitle']);
     }
@@ -55,14 +54,14 @@ class ControlAdmin
     public static function validateTitle()
     {
         global $dataError;
-        $s=SessionHandler::getInstance();
+        $s = SessionHandler::getInstance();
         if ($s->role != 'admin') {
             require(Config::getVues()['pageAuth']);
             return;
         }
-        $res=ValidationRequest::validationTitle($albumID);
-        if(!$res){
-            $formToDisplay='add_title';
+        $res = ValidationRequest::validationTitle($albumID);
+        if (!$res) {
+            $formToDisplay = 'add_title';
             require(Config::getVues()["addTitle"]);
             return;
         }
@@ -83,50 +82,47 @@ class ControlAdmin
             $dataError['InternalError'] = "Problem encountered while copying files. Please try again.";
         }
 
-        if(empty($dataError)){
+        if (empty($dataError)) {
             FrontController::Reinit();
             return;
-        }
-        else{
+        } else {
             require Config::getVuesErreur()['default'];
         }
     }
 
 
-
-
-    public static function validateAlbum(){
+    public static function validateAlbum()
+    {
         global $dataError;
-        $s=SessionHandler::getInstance();
+        $s = SessionHandler::getInstance();
         if ($s->role != 'admin') {
             require(Config::getVues()['pageAuth']);
             return;
         }
 
-        $albumTitle=Sanitize::sanitizeItem($_POST['album_title'], "string");
-        if(!$albumTitle){
-            $dataError["Invalid album name"]="The album title is a required field.";
+        $albumTitle = Sanitize::sanitizeItem($_POST['album_title'], "string");
+        if (!$albumTitle) {
+            $dataError["Invalid album name"] = "The album title is a required field.";
         }
 
-      // Si pas de fichier uploadé ou fichier non reçu :
-      $filename = $_FILES['albumCover']['tmp_name'];
-      if (empty($_FILES['albumCover']) || !is_uploaded_file($filename)) {
-          $dataError['InvalidAlbumCover'] = "No album cover were found for the album. <br/> Please upload one.";
-      }
-      // Le fichier a été correctement uploadé
-      else {
-          // Si le fichier n'a pas la bonne extension chez le client
-          $fileformat = end(explode('.', $_FILES['albumCover']['name']));
-          if ($fileformat != "png") {
-              $dataError['WrongFormat'] = "Invalid file format : Got .$fileformat while .png was expected.";
-          }
-      }
+        // Si pas de fichier uploadé ou fichier non reçu :
+        $filename = $_FILES['albumCover']['tmp_name'];
+        if (empty($_FILES['albumCover']) || !is_uploaded_file($filename)) {
+            $dataError['InvalidAlbumCover'] = "No album cover were found for the album. <br/> Please upload one.";
+        } // Le fichier a été correctement uploadé
+        else {
+            // Si le fichier n'a pas la bonne extension chez le client
+            $fileformat = end(explode('.', $_FILES['albumCover']['name']));
+            if ($fileformat != "png") {
+                $dataError['WrongFormat'] = "Invalid file format : Got .$fileformat while .png was expected.";
+            }
+        }
 
-      if(!empty($dataError)){
-          $formToDisplay='add_album';
-          require Config::getVues()['addTitle'];
-          return;
-      }
+        if (!empty($dataError)) {
+            $formToDisplay = 'add_album';
+            require Config::getVues()['addTitle'];
+            return;
+        }
 
         Model::addAlbum($albumTitle);
         if (!empty($dataError)) {
@@ -146,35 +142,35 @@ class ControlAdmin
             $dataError['InternalError'] = "Problem encountered while copying files. Please try again.";
         }
 
-        if(empty($dataError)){
-            $_REQUEST['action']='addTitle';
-            $_POST['albumID']=$idAlbum;
+        if (empty($dataError)) {
+            $_REQUEST['action'] = 'addTitle';
+            $_POST['albumID'] = $idAlbum;
             ControlAdmin::addTitle();
             return;
-        }
-        else{
+        } else {
             require Config::getVuesErreur()['default'];
         }
     }
 
 
-    public static function deleteTitle(){
+    public static function deleteTitle()
+    {
         global $dataError;
-        $s=SessionHandler::getInstance();
+        $s = SessionHandler::getInstance();
         if ($s->role != 'admin') {
             require(Config::getVues()['pageAuth']);
             return;
         }
 
-        if(isset($_POST['musicID'])) {
-            if(!Validation::validateItem($_POST['musicID'], "int")) {
+        if (isset($_POST['musicID'])) {
+            if (!Validation::validateItem($_POST['musicID'], "int")) {
                 $dataError['InvalidMusicID'] = "The music ID must be a number.";
             } else {
                 $musicID = Sanitize::sanitizeItem($_POST['musicID'], "int");
             }
         }
 
-        if(!empty($dataError)){
+        if (!empty($dataError)) {
             require Config::getVuesErreur()['Default'];
             return;
         }
@@ -185,9 +181,9 @@ class ControlAdmin
             return;
         }
 
-        $res=unlink(Music::getFullPathAudio($musicID));
-        if(!$res){
-            $dataError['rmError']="Could not delete the audio file for music $musicID";
+        $res = unlink(Music::getFullPathAudio($musicID));
+        if (!$res) {
+            $dataError['rmError'] = "Could not delete the audio file for music $musicID";
             require Config::getVuesErreur()['default'];
             return;
         }

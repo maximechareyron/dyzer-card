@@ -5808,7 +5808,7 @@ a.list-group-item.active:focus .list-group-item-text {
 }
 
 .panel {
-    margin-top : 20px;
+    margin-top: 20px;
     margin-bottom: 20px;
     background-color: rgba(128, 128, 128, 0.2);
     border: 1px solid transparent;

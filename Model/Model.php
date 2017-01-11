@@ -33,7 +33,8 @@ class Model
         return $tab;
     }
 
-    public static function getTopTen(){
+    public static function getTopTen()
+    {
         $gw = new MusicGateway(Config::createConnection());
         $musiques = $gw->getAllTitlesByLike();
 
@@ -41,11 +42,11 @@ class Model
             return false;
         }
         $tab = array();
-        $i=0;
+        $i = 0;
         foreach ($musiques as $l) {
             array_push($tab, new Music($l['idmusique'], $l['titre'], $l['artiste'], $l['annee'], $l['avisfav'], $l['avisdefav'], $l['album_id'], $l['datemaj']));
             $i++;
-            if($i==10) break;
+            if ($i == 10) break;
         }
         return $tab;
     }
@@ -63,12 +64,13 @@ class Model
     /**
      * @return mixed Tableau des titres des albums de la BD
      */
-    public static function getAllAlbumsTitles(){
+    public static function getAllAlbumsTitles()
+    {
         $gw = new AlbumGateway(Config::createConnection());
         $res = $gw->getAllAlbums();
-        if(!empty($res)){
-            $tab=array();
-            foreach ($res as $l){
+        if (!empty($res)) {
+            $tab = array();
+            foreach ($res as $l) {
                 array_push($tab, array($l['idalbum'], $l['titre']));
             }
             return $tab;
@@ -117,9 +119,9 @@ class Model
     {
         $gw = new CommentGateway(Config::createConnection());
         $res = $gw->getComments($musicID);
-        if(!empty($res)){
-            $tab=array();
-            foreach ($res as $l){
+        if (!empty($res)) {
+            $tab = array();
+            foreach ($res as $l) {
                 array_push($tab, new Commentaire($l['idmusique'], $l['iduser'], $l['date'], $l['text']));
             }
             return $tab;
@@ -133,10 +135,10 @@ class Model
         return $gw->addAlbum($title);
     }
 
-    public static function addCommentMusic($musicID,$iduser,$text)
+    public static function addCommentMusic($musicID, $iduser, $text)
     {
         $gw = new CommentGateway(Config::createConnection());
-        return $gw->addComment($musicID,$iduser,$text);
+        return $gw->addComment($musicID, $iduser, $text);
 
     }
 }

@@ -87,18 +87,18 @@ class ControlVisitor
         }
     }
 
-    public static function afficherDetailTitre(){
+    public static function afficherDetailTitre()
+    {
         global $dataError;
-        $s=SessionHandler::getInstance();
-        $role=$s->role;
-        if(Validation::validateItem($_GET['musicID'], "int"))
-        {
-            $musicID=Sanitize::sanitizeItem($_GET['musicID'], "int");
-            $music= Model::getMusicByID($musicID);
+        $s = SessionHandler::getInstance();
+        $role = $s->role;
+        if (Validation::validateItem($_GET['musicID'], "int")) {
+            $musicID = Sanitize::sanitizeItem($_GET['musicID'], "int");
+            $music = Model::getMusicByID($musicID);
             $comments = Model::getCommentMusic($musicID);
             require(Config::getVues()["afficheMusique"]);
-        } else{
-            $dataError["InvalidMusicID"]="The requested MusicID is invalid.";
+        } else {
+            $dataError["InvalidMusicID"] = "The requested MusicID is invalid.";
         }
     }
 }

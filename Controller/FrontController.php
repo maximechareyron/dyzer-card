@@ -57,39 +57,34 @@ class FrontController
 
                 // 3) actions accessibles uniquement aux administrateurs :
                 // 3. a) concernant les musiques :
-                case "addTitle": // Ajouter un titre
+                case 'addTitle': // Ajouter un titre
                     ControlAdmin::addTitle();
                     break;
-                case "validateTitle": //Validation d'un nouveau titre
+                case 'validateTitle': //Validation d'un nouveau titre
                     ControlAdmin::validateTitle();
                     break;
-                case "validateAlbum":
+                case 'validateAlbum':
                     ControlAdmin::validateAlbum();
                     break;
-                // case "editTitle": //Modifier les informations d'un titre
-                case "deleteTitle": // Supprimer un titre
+                // case 'editTitle': //Modifier les informations d'un titre
+                case 'deleteTitle': // Supprimer un titre
                     ControlAdmin::deleteTitle();
                     break;
-                    // 3. b) concernant les commentaires :
-                    /*case "deleteComment": // Supprimer un commentaire
-                        if ($role == "admin") {
-                            $adminCtrl = new ControleurAdmin($action);
-                        } else {
-                            require(Config::getVues()["authentication"]);
-                        }
-                        break;
-    */
-                    // 4) actions accessibles aux administrateurs et aux utilisateurs authentifiés
-                case "detailTitre": // Afficher le détail d'un titre
+                // 3. b) concernant les commentaires :
+                case 'deleteComment': // Supprimer un commentaire
+                    $adminCtrl = new ControleurAdmin($action);
+                    break;
+                // 4) actions accessibles aux administrateurs et aux utilisateurs authentifiés
+                case 'detailTitre': // Afficher le détail d'un titre
                     ControlVisitor::afficherDetailTitre();
                     break;
-                case "addComment":
+                case 'addComment':
                     ControlVisitorAuth::addComment();
                     break;
-                case "validateComment":
+                case 'validateComment':
                     ControlVisitorAuth::validateComment();
                     break;
-                case "logout": // Se déconnecter
+                case 'logout': // Se déconnecter
                     ControlVisitorAuth::logout();
                     break;
 
@@ -102,15 +97,11 @@ class FrontController
                 default :
                     global $dataError;
                     $dataError['error'] = "Wrong php call";
-                    require(Config::getVuesErreur()["default"]);
+                    require(Config::getVuesErreur()['default']);
             }
         } catch (\Exception $e) {
             global $dataError;
             $dataError['Exception'] = $e->getMessage();
-            require(Config::getVuesErreur()["default"]);
-        } catch (\PDOException $e) {
-            global $dataError;
-            $dataError['PDOException'] = $e->getMessage();
             require(Config::getVuesErreur()["default"]);
         } catch (\Error $e) {
             global $dataError;

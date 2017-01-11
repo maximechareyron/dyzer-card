@@ -95,8 +95,8 @@ class MusicGateway
         );
         try {
             $res = $this->dbcon->prepareAndExecuteQuery($query, $tab);
-        }catch (\PDOException $e){
-            $dataError['db']=$e->getMessage();
+        } catch (\PDOException $e) {
+            $dataError['db'] = $e->getMessage();
         }
         if (!$res) {
             $dataError['persistance'] = "Title couldn't not be deleted from the database" . " Music ID may not exist.";

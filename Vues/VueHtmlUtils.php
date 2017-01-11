@@ -176,8 +176,9 @@ class VueHtmlUtils
         return $htmlCode;
     }
 
-    public static function getHTML_TitleDetailsControls($role, $musicID){
-        if($role!='admin') {
+    public static function getHTML_TitleDetailsControls($role, $musicID)
+    {
+        if ($role != 'admin') {
             return "";
         }
         //$htmlCode = "<div class=\"row\">\n";
@@ -194,7 +195,7 @@ class VueHtmlUtils
     public static function getHTML_Commentaire($commentaires)
     {
         $base = "<form action=\"?action=deleteComment\" method=\"post\">\n";
-        $var=$commentaires[0]->idMusique;
+        $var = $commentaires[0]->idMusique;
         $base .= "<input type=\"hidden\" name=\"musicID\" value=\"$var\">\n";
         $base .= "<button class=\"btn btn-danger\" type=\"submit\"><span class=\"glyphicon glyphicon-trash\"></span></button>";
 
@@ -211,12 +212,12 @@ class VueHtmlUtils
         $htmlCode .= "</div>\n";
 
 
-        foreach($commentaires as $subCom) {
-            $actions="";
+        foreach ($commentaires as $subCom) {
+            $actions = "";
             $_user = "\t\t<span class=\"glyphicon glyphicon-user\"></span> By : $subCom->idUser\n";
             $_date = "<span class=\"glyphicon glyphicon-time\"></span> Posted on : $subCom->date\n";
-            if($_SESSION['email']== $subCom->idUser || $_SESSION['role']=='admin'){
-                $actions = $base."<input type=\"hidden\" name=\"auteur\" value=\"$subCom->idUser\">\n</form>";
+            if ($_SESSION['email'] == $subCom->idUser || $_SESSION['role'] == 'admin') {
+                $actions = $base . "<input type=\"hidden\" name=\"auteur\" value=\"$subCom->idUser\">\n</form>";
             }
 
             $htmlCode .= "<div class=\"panel panel-default\">\n";

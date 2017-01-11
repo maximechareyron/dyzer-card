@@ -44,7 +44,8 @@ class ValidationRequest
      * @param $dataError array Tableau d'erreur à remplir
      * @return bool|Music
      */
-    public static function validationTitle(&$albumID){
+    public static function validationTitle(&$albumID)
+    {
         global $dataError;
         $title = Sanitize::sanitizeItem($_POST["title"], "string");
         if ($title === false) {
@@ -60,11 +61,10 @@ class ValidationRequest
             $dataError['InvalidYear'] = "The year must be a number.";
         } else {
             $year = Sanitize::sanitizeItem($_POST['year'], "int");
-            if($year>date(Y)){
-                $dataError['InvalidYear']="$year is not valid date. We are still in ".date(Y);
-            }
-            else if(strlen($year)!=4){
-                $dataError['InvalidYear']="Invalid year format. Must be yyyy.";
+            if ($year > date(Y)) {
+                $dataError['InvalidYear'] = "$year is not valid date. We are still in " . date(Y);
+            } else if (strlen($year) != 4) {
+                $dataError['InvalidYear'] = "Invalid year format. Must be yyyy.";
             }
         }
         if (!Validation::validateItem($_POST['albumID'], "int")) {
@@ -85,8 +85,7 @@ class ValidationRequest
         if (empty($_FILES['audio']) || !is_uploaded_file($filename)) {
             $dataError['InvalidAudioFile'] = "No audio file were found. Please upload one.";
             $dataError['Sizefile'] = "If you did upload an audio file, please check that its size does not exceeds " . ini_get('upload_max_filesize') . ".";
-        }
-        // Le fichier a été correctement uploadé
+        } // Le fichier a été correctement uploadé
         else {
             // Si le fichier n'a pas la bonne extension chez le client
             $fileformat = end(explode('.', $_FILES['audio']['name']));

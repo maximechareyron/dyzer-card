@@ -8,7 +8,6 @@
 
 namespace DyzerCard\Persistance\DAL;
 
-use DyzerCard\Metier\Commentaire;
 use DyzerCard\Persistance\Connection;
 
 
@@ -34,8 +33,8 @@ class CommentGateway
         }
         return $this->dbcon->getResults();
     }
-    
-    public function addComment($musicID,$iduser,$text)
+
+    public function addComment($musicID, $iduser, $text)
     {
         {
             global $dataError;
@@ -44,7 +43,7 @@ class CommentGateway
                 ':music_id' => array($musicID, \PDO::PARAM_INT),
                 ':iduser' => array($iduser, \PDO::PARAM_STR),
                 ':text' => array($text, \PDO::PARAM_STR),
-                );
+            );
             try {
                 $res = $this->dbcon->prepareAndExecuteQuery($query, $tab);
             } catch (\PDOException $e) {
