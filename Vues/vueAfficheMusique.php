@@ -6,7 +6,7 @@
         <!-- blockblack -->
         <div class="musicblock">
             <?=DyzerCard\Vues\VueHtmlUtils::getHTML_MusiqueDetail($music);?>
-            <?/*=DyzerCard\Vues\VueHtmlUtils::getHTML_Commentaire($commentaires);*/?>
+            <?=DyzerCard\Vues\VueHtmlUtils::getHTML_Commentaire($comments);?>
         </div>
         <!-- blockblack -->
 

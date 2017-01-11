@@ -74,12 +74,19 @@ INSERT INTO `musique` (`idmusique`, `titre`, `artiste`, `annee`, `avisfav`, `avi
 (10, 'Belle', 'Daniel Lavoie, Garou, Patrick Fiori', 1998, 0, 0, 5, '2017-01-08 12:28:32');
 
 
-CREATE TABLE `commentaire` (
+CREATE TABLE `comments` (
   `idmusique` int(11) NOT NULL,
   `iduser` varchar(50) DEFAULT NULL,
-  `date` varchar(200) DEFAULT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `text` int(11) DEFAULT NULL,
+  `text` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `comments` (`idmusique`, `iduser`, `date`, `text`) VALUES
+(1, 'm@x.fr','franchement cest bien'),
+(1, 'maxime.chareyron@gmail.com','franchement cest bien'),
+(2, 'maxime.chareyron@gmail.com','g vu mieu'),
+(3, 'maxime.chareyron@gmail.com','allah akbar'),
+(3, 'm@x.fr','wllh la tueri psartek'),
+(5, 'm@x.fr','ivre');
 --
 -- Indexes for dumped tables
 --

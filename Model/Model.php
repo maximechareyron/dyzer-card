@@ -6,6 +6,7 @@
 namespace DyzerCard\Model;
 
 use DyzerCard\Config\Config;
+use DyzerCard\Metier\Commentaire;
 use DyzerCard\Metier\Music;
 use DyzerCard\Persistance\DAL\AlbumGateway;
 use DyzerCard\Persistance\DAL\MusicGateway;

@@ -210,7 +210,6 @@ class VueHtmlUtils
 
 
         }
-        $htmlCode .= "</div>\n";
 
         return $htmlCode;
     }
