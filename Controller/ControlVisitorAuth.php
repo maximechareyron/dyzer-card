@@ -3,6 +3,7 @@
 namespace DyzerCard\Controller;
 
 use DyzerCard\Auth\Authentication;
+use DyzerCard\Auth\ModelUser;
 use DyzerCard\Auth\SessionHandler;
 use DyzerCard\Config\Config;
 use DyzerCard\Config\Sanitize;
@@ -125,12 +126,42 @@ class ControlVisitorAuth
 
         Model::removeComment($author, $musicID, $date);
         if(!empty($dataError)){
-            require Config::getVuesErreur()['Default'];
+            require Config::getVuesErreur()['default'];
             return;
         }
 
         $_GET['musicID']=$musicID;
         ControlVisitor::afficherDetailTitre();
+    }
 
+    public static function configAccount(){
+        global $dataError;
+        $s = SessionHandler::getInstance();
+        if ($s->role != 'visitor') {
+            $dataError['UnreachablePage'] = "You do not have access to this page";
+            require(Config::getVuesErreur()['default']);
+            return;
+        }
+
+        require(Config::getVues()['configAccount']);
+    }
+
+    public static function deleteAccount(){
+        global $dataError;
+
+        $s = SessionHandler::getInstance();
+        if ($s->role != 'visitor') {
+            $dataError['UnreachablePage'] = "You do not have access to this page";
+            require(Config::getVues()['pageAuth']);
+            return;
+        }
+        ModelUser::deleteUser($s->email);
+
+        if(!empty($dataError)){
+            require(Config::getVuesErreur()['default']);
+            return;
+        }
+        $s->destroy();
+        FrontController::Reinit();
     }
 }

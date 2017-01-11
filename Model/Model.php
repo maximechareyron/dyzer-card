@@ -128,7 +128,7 @@ class Model
         if (!empty($res)) {
             $tab = array();
             foreach ($res as $l) {
-                array_push($tab, new Commentaire($l['idmusique'], $l['iduser'], $l['datemodif'], $l['text']));
+                array_push($tab, new Commentaire($l['idmusique'], $l['iduser'], $l['datemodif'], $l['content']));
             }
             return $tab;
         }

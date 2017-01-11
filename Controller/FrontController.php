@@ -34,16 +34,16 @@ class FrontController
             switch ($action) {
                 // 1) actions accessibles à tout le monde
                 // 1. a) actions concernant l'authentification
-                case "login": // Vue de saisie du login/password
+                case 'login': // Vue de saisie du login/password
                     ControlVisitor::authenticate();
                     break;
-                case "validateLogin": // Validation du login/password
+                case 'validateLogin': // Validation du login/password
                     ControlVisitor::validateAuth();
                     break;
-                case "register": // Vue de création d'un compte utilisateur
+                case 'register': // Vue de création d'un compte utilisateur
                     ControlVisitor::register();
                     break;
-                case "validateRegister": // Validation de la création d'un compte utilisateur
+                case 'validateRegister': // Validation de la création d'un compte utilisateur
                     ControlVisitor::validateRegister();
                     break;
 
@@ -51,8 +51,13 @@ class FrontController
                 /*
                 case "like": // Avis favorable
                 case "nlike": // Avis défavorable
-                case "addComment": // Ajouter un commentaire
                 */
+                case 'configAccount':
+                    ControlVisitorAuth::configAccount();
+                    break;
+                case 'deleteUserAccount':
+                    ControlVisitorAuth::deleteAccount();
+                    break;
 
                 // 3) actions accessibles uniquement aux administrateurs :
                 // 3. a) concernant les musiques :
@@ -69,10 +74,7 @@ class FrontController
                 case 'deleteTitle': // Supprimer un titre
                     ControlAdmin::deleteTitle();
                     break;
-                // 3. b) concernant les commentaires :
-                case 'deleteComment': // Supprimer un commentaire
-                    ControlVisitorAuth::deleteComment();
-                    break;
+
                 // 4) actions accessibles aux administrateurs et aux utilisateurs authentifiés
                 case 'detailTitre': // Afficher le détail d'un titre
                     ControlVisitor::afficherDetailTitre();
@@ -82,6 +84,9 @@ class FrontController
                     break;
                 case 'validateComment':
                     ControlVisitorAuth::validateComment();
+                    break;
+                case 'deleteComment': // Supprimer un commentaire
+                    ControlVisitorAuth::deleteComment();
                     break;
                 case 'logout': // Se déconnecter
                     ControlVisitorAuth::logout();
@@ -112,6 +117,8 @@ class FrontController
     public static function Reinit()
     {
         global $dataError;
+        unset($_POST);
+        unset($_GET);
         $musiques = Model::getTopTen();
         require(Config::getVues()["default"]);
     }

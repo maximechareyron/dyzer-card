@@ -47,6 +47,7 @@ class Config
             "visitorAuth" => $vueDirectory . "vueVisitorAuth.php",
             "addTitle" => $vueDirectory . "vueAddTitle.php",
             "afficheMusique" => $vueDirectory . "vueAfficheMusique.php",
+            "configAccount" => $vueDirectory . "vueConfigAccount.php",
             //"saisieMusiqueUpdate"=>$vueDirectory."vueSaisieMusiqueUpdate.php",
         );
     }

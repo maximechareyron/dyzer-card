@@ -38,7 +38,7 @@ class CommentGateway
     {
         {
             global $dataError;
-            $query = 'INSERT INTO comment VALUES(:music_id, :iduser, DEFAULT, :text)';
+            $query = 'INSERT INTO comment VALUES(:music_id, :iduser, :text, DEFAULT)';
             $tab = array(
                 ':music_id' => array($musicID, \PDO::PARAM_INT),
                 ':iduser' => array($iduser, \PDO::PARAM_STR),

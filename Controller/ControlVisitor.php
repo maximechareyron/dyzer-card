@@ -37,27 +37,20 @@ class ControlVisitor
                 'password' => $password,
                 'role' => 'visitor'
             );
-            ModelUser::createUser($dataError, $dataUser);
-            // Si la requête a fonctionné :
-            if (empty($dataError)) {
-                $role = Authentication::checkAndInitiateSession($email, $password, $dataError);
-                // Si l'authentification du nouvel utilisateur a fonctionné :
-                if (empty($dataError)) {
-                    require(Config::getVues()["visitorAuth"]);
-                } // Sinon, on affiche la page d'erreur par défaut
-                else {
-                    FrontController::Reinit();
-                    return;
-                }
-            } // Echec de la requête de création de l'utilisateur
-            else {
-                // Affiche la page d'erreur par défaut
-                require(Config::getVuesErreur()['default']);
+            ModelUser::createUser($dataUser);
+            if (!empty($dataError)) {
+                require(Config::getVuesErreur()["default"]);
+                return;
             }
+            Authentication::checkAndInitiateSession($email, $password, $dataError);
+            if (!empty($dataError)) {
+                require(Config::getVuesErreur()['default']);
+                return;
+            }
+            FrontController::Reinit();
+            return;
         } // E-mail & mot de passe invalides, on affiche les erreurs, puis on affiche le formulaire
-        else {
             require(Config::getVues()["pageRegister"]);
-        }
     }
 
     /**

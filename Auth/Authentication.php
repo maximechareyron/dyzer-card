@@ -36,10 +36,8 @@ class Authentication
 
     public static function disconnection()
     {
-        global $sessionOK;
         SessionUtils::endSession();
         setcookie("PHPSESSID", "", time() - 1);
-        $sessionOK = false;
     }
 }
 

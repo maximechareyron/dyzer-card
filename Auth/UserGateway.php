@@ -45,8 +45,9 @@ class UserGateway
      * @param $inputArray array Tableau d'entrée contenant un login (e-mail), un mot de passe (non crypté), et un rôle
      * @return bool
      */
-    public function createUser(&$dataError, $inputArray)
+    public function createUser($inputArray)
     {
+        global $dataError;
         $inputArray['password'] = hash("sha512", $inputArray['password']);
         $query = 'INSERT INTO admin VALUES (:login,:passwd,:role)';
         $tab = array(
@@ -56,11 +57,33 @@ class UserGateway
         );
         try {
             $res = $this->dbcon->prepareAndExecuteQuery($query, $tab);
-        } catch (\Exception $e) {
+        } catch (\PDOException $e) {
             $dataError['db'] = $e->getMessage();
         }
         if (!$res) {
-            $dataError['persistance'] = "Query could not be executed. Login may already exist.";
+            $dataError['persistance'] = "Query could not be executed. Login may already exist in database.";
+        }
+        return $res;
+    }
+
+
+    /** @supprime un utilisateur de la table admin
+     * @param $login string login de l'utilisateur
+     * @return bool
+     */
+    public function deleteUser($login){
+        global $dataError;
+        $query = 'DELETE FROM admin WHERE iduser=:login';
+        $tab = array(
+            ':login' => array($login, \PDO::PARAM_STR)
+        );
+        try{
+            $res = $this->dbcon->prepareAndExecuteQuery($query, $tab);
+        } catch (\PDOException $e){
+            $dataError['db'] = $e->getMessage();
+        }
+        if(!$res){
+            $dataError['persistance']= "Query could not be executed. Login may not exist in database.";
         }
         return $res;
     }

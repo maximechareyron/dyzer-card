@@ -37,10 +37,15 @@ class ModelUser
      * @param $inputArray array Tableau d'entrée contenant les données d'un user
      * @return bool contenant les données du nouveau user
      */
-    public static function createUser(&$dataError, $inputArray)
+    public static function createUser($inputArray)
     {
         $gw = new UserGateway((Config::createConnection()));
-        return $gw->createUser($dataError, $inputArray);
+        return $gw->createUser($inputArray);
+    }
+
+    public static function deleteUser($login){
+        $gw = new UserGateway(Config::createConnection());
+        return $gw->deleteUser($login);
     }
 }
 

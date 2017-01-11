@@ -113,6 +113,11 @@ class VueHtmlUtils
                 $htmlCode .= "<span class=\"glyphicon glyphicon-log-out\">\n";
                 $htmlCode .= "</span> Sign out\n";
                 $htmlCode .= "</a>\n";
+                $htmlCode .= "</li>\n";
+                $htmlCode .= "<li>\n";
+                $htmlCode .= "<a href=\"?action=configAccount\">\n";
+                $htmlCode .= "<span class=\"glyphicon glyphicon-cog\">\n";
+                $htmlCode .= "</a>\n";
                 break;
             default:
                 $htmlCode .= "<a id=\"signup\" href=\"?action=register\">";
