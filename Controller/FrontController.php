@@ -79,6 +79,9 @@ class FrontController
                 case 'detailTitre': // Afficher le détail d'un titre
                     ControlVisitor::afficherDetailTitre();
                     break;
+                case 'like':
+                    ControlVisitorAuth::likeTitle();
+                    break;
                 case 'addComment':
                     ControlVisitorAuth::addComment();
                     break;

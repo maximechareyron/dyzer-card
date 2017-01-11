@@ -153,6 +153,18 @@ class Model
         return $gw->removeComment($author, $music_id, $date);
     }
 
+    public static function addLikeTitle($musicID, $author)
+    {
+        $gw = new LikeGateway(Config::createConnection());
+        if (!empty($res)) {
+            $tab = array();
+            foreach ($res as $l) {
+                array_push($tab, new Commentaire($l['idmusique'], $l['iduser'], $l['datemodif'], $l['content']));
+            }
+            return $tab;
+        }
+        return $res;
+    }
 }
 
 ?>

@@ -164,4 +164,47 @@ class ControlVisitorAuth
         $s->destroy();
         FrontController::Reinit();
     }
+
+    public static function likeTitle()
+    {
+        global $dataError;
+        $s = SessionHandler::getInstance();
+        if ($s->role != 'visitor' && $s->role != 'admin') {
+            $dataError['UnreachablePage'] = "You do not have access to this page";
+            require(Config::getVues()['pageAuth']);
+            return;
+        }
+        if(isset($_GET['musicID']))
+        {
+            if (!Validation::validateItem($_GET['musicID'], "int")) {
+                $dataError['InvalidMusicID'] = "The music ID must be a number.";
+            } else {
+                $musicID = Sanitize::sanitizeItem($_POST['musicID'], "int");
+            }
+
+        } else{
+            $dataError['missingMusicID']="You need to pick a song to delete";
+        }
+        if (isset($_SESSION['email'])) {
+            $author=Sanitize::sanitizeItem($_SESSION['email'], "string");
+        }else {
+            $dataError['missingAuthor'] = "You need to specify the author of this like";
+        }
+
+        if(!empty($dataError)){
+            require(Config::getVuesErreur()['default']);
+            return;
+        }
+
+        Model::addLikeTitle($musicID, $author);
+
+        if(!empty($dataError)){
+            require Config::getVuesErreur()['default'];
+            return;
+        }
+
+        $_GET['musicID']=$musicID;
+        ControlVisitor::afficherDetailTitre();
+
+    }
 }

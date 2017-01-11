@@ -21,10 +21,10 @@ class Config
 
     public static function getAuthData(&$db_host, &$db_name, &$db_user, &$db_password)
     {
-        $db_host = "localhost";
-        $db_name = "dyzercard";
-        $db_user = "max";
-        $db_password = "london";
+        $db_host = "mysql.hostinger.fr";
+        $db_name = "u258039167_db";
+        $db_user = "u258039167_krak";
+        $db_password = "ivresse";
         return "mysql:host=$db_host;dbname=$db_name";
     }
 
