@@ -71,7 +71,7 @@ class FrontController
                     break;
                 // 3. b) concernant les commentaires :
                 case 'deleteComment': // Supprimer un commentaire
-                    ControlAdmin::deleteComment();
+                    ControlVisitorAuth::deleteComment();
                     break;
                 // 4) actions accessibles aux administrateurs et aux utilisateurs authentifiés
                 case 'detailTitre': // Afficher le détail d'un titre

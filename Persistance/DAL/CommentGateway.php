@@ -23,7 +23,7 @@ class CommentGateway
     public function getComments($musicID)
     {
         global $dataError;
-        $query = 'SELECT * FROM comment WHERE idmusique=:musicID';
+        $query = 'SELECT * FROM comment WHERE idmusique=:musicID ORDER BY datemodif';
         $tab = array(
             ':musicID' => array($musicID, \PDO::PARAM_INT)
         );

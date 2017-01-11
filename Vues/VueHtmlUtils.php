@@ -205,7 +205,7 @@ class VueHtmlUtils
         $htmlCode .= "\t</div>\n";
         $htmlCode .= "\t<div class=\"col-md-4\">\n";
         $htmlCode .= "<form action=\"?action=addComment\" method=\"post\">";
-        $htmlCode .= "\t<input type=\"hidden\" name=\"musicID\" value=\"$var\">";
+        $htmlCode .= "\t<input type=\"hidden\" name=\"musicID\" value=\"".$_GET['musicID']."\">";
         $htmlCode .= "\t<button class=\"btn btn-lg\" type=\"submit\"><span class=\"glyphicon glyphicon-plus\"></span> Add a comment</button>";
         $htmlCode .= "</form>";
         $htmlCode .= "\t</div>\n";

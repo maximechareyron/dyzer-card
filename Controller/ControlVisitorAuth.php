@@ -19,6 +19,7 @@ class ControlVisitorAuth
 
     public static function addComment()
     {
+        var_dump($_POST);
         global $dataError;
         $s = SessionHandler::getInstance();
 
@@ -78,7 +79,58 @@ class ControlVisitorAuth
             require Config::getVues()['addTitle'];
             return;
         }
-        FrontController::Reinit();
+
+        $_GET['musicID']=$musicID;
+        ControlVisitor::afficherDetailTitre();
+    }
+
+
+    public static function deleteComment(){
+        global $dataError;
+        $s = SessionHandler::getInstance();
+        if ($s->role != 'admin' && $s->role != 'visitor') {
+            require(Config::getVues()['pageAuth']);
+            return;
+        }
+
+        if (isset($_POST['musicID'])) {
+            if (!Validation::validateItem($_POST['musicID'], "int")) {
+                $dataError['InvalidMusicID'] = "The music ID must be a number.";
+            } else {
+                $musicID = Sanitize::sanitizeItem($_POST['musicID'], "int");
+            }
+        } else{
+            $dataError['missingMusicID']="You need to pick a song to delete";
+        }
+
+        if (isset($_POST['author'])) {
+            $author=Sanitize::sanitizeItem($_POST['author'], "string");
+        }else{
+            $dataError['missingAuthor'] = "You need to specify the author of the comment";
+        }
+
+        if (isset($_POST['dateComment'])) {
+            $date=Sanitize::sanitizeItem($_POST['dateComment'], "string");
+            if(strlen($date)!=19){
+                $dataError['InvalidDate']="The specified date is invalid : $date (too short)";
+            }
+        }else{
+            $dataError['missingDate']= "You need to specify the publication date of the comment";
+        }
+
+        if (!empty($dataError)) {
+            require Config::getVuesErreur()['Default'];
+            return;
+        }
+
+        Model::removeComment($author, $musicID, $date);
+        if(!empty($dataError)){
+            require Config::getVuesErreur()['Default'];
+            return;
+        }
+
+        $_GET['musicID']=$musicID;
+        ControlVisitor::afficherDetailTitre();
 
     }
 }
