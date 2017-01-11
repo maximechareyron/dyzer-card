@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 11, 2017 at 01:46 PM
+-- Generation Time: Jan 11, 2017 at 03:14 PM
 -- Server version: 5.7.16-0ubuntu0.16.04.1
 -- PHP Version: 7.0.8-0ubuntu0.16.04.3
 
@@ -88,6 +88,28 @@ INSERT INTO `comment` (`idmusique`, `iduser`, `content`, `datemodif`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `jaime`
+--
+
+CREATE TABLE `jaime` (
+  `idmusique` int(11) NOT NULL,
+  `iduser` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jaimepas`
+--
+
+CREATE TABLE `jaimepas` (
+  `idmusique` int(11) NOT NULL,
+  `iduser` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `musique`
 --
 
@@ -135,6 +157,20 @@ ALTER TABLE `comment`
   ADD KEY `fk_auteur` (`iduser`);
 
 --
+-- Indexes for table `jaime`
+--
+ALTER TABLE `jaime`
+  ADD PRIMARY KEY (`idmusique`,`iduser`),
+  ADD KEY `fk_like_auteur` (`iduser`);
+
+--
+-- Indexes for table `jaimepas`
+--
+ALTER TABLE `jaimepas`
+  ADD PRIMARY KEY (`idmusique`,`iduser`),
+  ADD KEY `fk_nlike_auteur` (`iduser`);
+
+--
 -- Indexes for table `musique`
 --
 ALTER TABLE `musique`
@@ -165,6 +201,20 @@ ALTER TABLE `musique`
 ALTER TABLE `comment`
   ADD CONSTRAINT `fk_auteur` FOREIGN KEY (`iduser`) REFERENCES `admin` (`iduser`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk_musique` FOREIGN KEY (`idmusique`) REFERENCES `musique` (`idmusique`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `jaime`
+--
+ALTER TABLE `jaime`
+  ADD CONSTRAINT `fk_like_auteur` FOREIGN KEY (`iduser`) REFERENCES `admin` (`iduser`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_like_musique` FOREIGN KEY (`idmusique`) REFERENCES `musique` (`idmusique`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `jaimepas`
+--
+ALTER TABLE `jaimepas`
+  ADD CONSTRAINT `fk_nlike_auteur` FOREIGN KEY (`iduser`) REFERENCES `admin` (`iduser`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_nlike_musique` FOREIGN KEY (`idmusique`) REFERENCES `musique` (`idmusique`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `musique`
