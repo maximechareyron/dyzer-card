@@ -3,6 +3,7 @@
 namespace DyzerCard\Controller;
 
 use DyzerCard\Auth\Authentication;
+use DyzerCard\Auth\SessionHandler;
 use DyzerCard\Config\Config;
 use DyzerCard\Config\Sanitize;
 use DyzerCard\Model\Model;
@@ -21,7 +22,7 @@ class ControlVisitorAuth
         $s=SessionHandler::getInstance();
 
         //Vérification du rôle
-        if ($s->role != 'user' || $s->role != 'admin') {
+        if ($s->role != 'user' && $s->role != 'admin') {
             require(Config::getVues()['pageAuth']);
             return;
         }
@@ -47,6 +48,6 @@ class ControlVisitorAuth
         Sanitize::sanitizeItem($_POST['text'],"string");
 
         Model::addCommentMusic($_GET['musicID'],$_SESSION['email'],$_POST['text']);
-        
+
     }
 }

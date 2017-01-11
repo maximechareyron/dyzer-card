@@ -77,16 +77,17 @@ INSERT INTO `musique` (`idmusique`, `titre`, `artiste`, `annee`, `avisfav`, `avi
 CREATE TABLE `comments` (
   `idmusique` int(11) NOT NULL,
   `iduser` varchar(50) DEFAULT NULL,
-  `text` varchar(200) DEFAULT NULL
+  `text` varchar(200) DEFAULT NULL,
+  `datemaj` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `comments` (`idmusique`, `iduser`, `date`, `text`) VALUES
-(1, 'm@x.fr','franchement cest bien'),
-(1, 'maxime.chareyron@gmail.com','franchement cest bien'),
-(2, 'maxime.chareyron@gmail.com','g vu mieu'),
-(3, 'maxime.chareyron@gmail.com','allah akbar'),
-(3, 'm@x.fr','wllh la tueri psartek'),
-(5, 'm@x.fr','ivre');
+INSERT INTO `comment` (`idmusique`, `iduser`, `date`, `text`) VALUES
+(1, 'm@x.fr', '2017-01-07 14:53:48', 'franchement cest bien'),
+(1, 'maxime.chareyron@gmail.com', '2017-01-07 14:53:48', 'franchement cest bien'),
+(2, 'maxime.chareyron@gmail.com', '2017-01-07 14:53:48', 'g vu mieu'),
+(3, 'maxime.chareyron@gmail.com', '2017-01-07 14:53:48', 'allah akbar'),
+(3, 'm@x.fr', '2017-01-07 14:53:48', 'wllh la tueri psartek'),
+(5, 'm@x.fr', '2017-01-07 14:53:48', 'ivre');
 --
 -- Indexes for dumped tables
 --
