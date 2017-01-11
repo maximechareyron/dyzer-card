@@ -84,8 +84,10 @@ class FrontController
                     ControlVisitor::afficherDetailTitre();
                     break;
                 case "addComment":
-
                     ControlVisitorAuth::addComment();
+                    break;
+                case "validateComment":
+                    ControlVisitorAuth::validateComment();
                     break;
                 case "logout": // Se déconnecter
                     ControlVisitorAuth::logout();

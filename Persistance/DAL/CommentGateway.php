@@ -23,7 +23,6 @@ class CommentGateway
 
     public function getComments($musicID)
     {
-        echo $musicID;
         global $dataError;
         $query = 'SELECT * FROM comment WHERE idmusique=:musicID';
         $tab = array(
@@ -40,15 +39,15 @@ class CommentGateway
     {
         {
             global $dataError;
-            $query = 'INSERT INTO comment VALUES(:musicID, :iduser, :text)';
+            $query = 'INSERT INTO comment VALUES(:music_id, :iduser, DEFAULT, :text)';
             $tab = array(
-                ':musicID' => array($musicID, \PDO::PARAM_INT),
-                ':iduser' => array($iduser, \PDO::PARAM_INT),
+                ':music_id' => array($musicID, \PDO::PARAM_INT),
+                ':iduser' => array($iduser, \PDO::PARAM_STR),
                 ':text' => array($text, \PDO::PARAM_STR),
                 );
             try {
                 $res = $this->dbcon->prepareAndExecuteQuery($query, $tab);
-            } catch (\Exception $e) {
+            } catch (\PDOException $e) {
                 $dataError['db'] = $e->getMessage();
             }
             if (!$res) {

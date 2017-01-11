@@ -137,6 +137,7 @@ class Model
     {
         $gw = new CommentGateway(Config::createConnection());
         return $gw->addComment($musicID,$iduser,$text);
+
     }
 }
 

@@ -6,6 +6,7 @@ use DyzerCard\Auth\Authentication;
 use DyzerCard\Auth\SessionHandler;
 use DyzerCard\Config\Config;
 use DyzerCard\Config\Sanitize;
+use DyzerCard\Config\Validation;
 use DyzerCard\Model\Model;
 
 class ControlVisitorAuth
@@ -22,32 +23,62 @@ class ControlVisitorAuth
         $s=SessionHandler::getInstance();
 
         //Vérification du rôle
-        if ($s->role != 'user' && $s->role != 'admin') {
+        if ($s->role != 'visitor' && $s->role != 'admin') {
             require(Config::getVues()['pageAuth']);
             return;
         }
 
-        // Si l'utilisateur a déjà choisi un album :
-        if(isset($_POST['text'])) {
-            Sanitize::sanitizeItem($_POST['text'],"string");
-                $dataError['Invalidtext'] = "The comment must be a text.";
+
+        if(Validation::validateItem($_POST['musicID'], "int")){
+            $musicID=Sanitize::sanitizeItem($_POST['musicID'],"int");
+        }else{
+            $dataError['InvalidMusicID'] = "Wrong music ID.";
         }
-        $formToDisplay = 'add_comment';
-        require(Config::getVues()['addTitle']);
-    }
+
+        if(!empty($dataError)){
+            require Config::getVuesErreur()['default'];
+            return;
+        }
+
+        $formToDisplay="add_comment";
+        require Config::getVues()['addTitle'];
+        return;
+        }
 
     public static function validateComment()
     {
         global $dataError;
         $s=SessionHandler::getInstance();
-        if ($s->role != 'user' || $s->role != 'admin') {
+        if ($s->role != 'visitor' && $s->role != 'admin') {
             require(Config::getVues()['pageAuth']);
             return;
         }
 
-        Sanitize::sanitizeItem($_POST['text'],"string");
+        if(isset($_POST['text'])) {
+            $content=Sanitize::sanitizeItem($_POST['text'],"string");
+            if($content != $_POST['text']) {
+                $dataError['Invalidtext'] = "The comment must be a text.";
+            }
+        }
+        if(Validation::validateItem($_POST['musicID'], "int")){
+            $musicID=Sanitize::sanitizeItem($_POST['musicID'],"int");
+        }else{
+            $dataError['InvalidMusicID'] = "Wrong music ID.";
+        }
 
-        Model::addCommentMusic($_GET['musicID'],$_SESSION['email'],$_POST['text']);
+        $formToDisplay="add_comment";
+        if(!empty($dataError)) {
+            require Config::getVues()['addTitle'];
+            return;
+        }
+
+
+        Model::addCommentMusic($musicID,$s->email,$content);
+        if(!empty($dataError)){
+            require Config::getVues()['addTitle'];
+            return;
+        }
+        FrontController::Reinit();
 
     }
 }

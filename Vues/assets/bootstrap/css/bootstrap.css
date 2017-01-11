@@ -5808,8 +5808,9 @@ a.list-group-item.active:focus .list-group-item-text {
 }
 
 .panel {
+    margin-top : 20px;
     margin-bottom: 20px;
-    background-color: #ffffff;
+    background-color: rgba(128, 128, 128, 0.2);
     border: 1px solid transparent;
     border-radius: 4px;
     -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
@@ -5955,7 +5956,7 @@ a.list-group-item.active:focus .list-group-item-text {
 
 .panel-footer {
     padding: 10px 15px;
-    background-color: #f5f5f5;
+    background-color: rgba(0, 0, 0, 0.7);
     border-top: 1px solid #dddddd;
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;

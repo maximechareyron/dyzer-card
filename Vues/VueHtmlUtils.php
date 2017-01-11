@@ -193,21 +193,43 @@ class VueHtmlUtils
 
     public static function getHTML_Commentaire($commentaires)
     {
+        $base = "<form action=\"?action=deleteComment\" method=\"post\">\n";
+        $var=$commentaires[0]->idMusique;
+        $base .= "<input type=\"hidden\" name=\"musicID\" value=\"$var\">\n";
+        $base .= "<button class=\"btn btn-danger\" type=\"submit\"><span class=\"glyphicon glyphicon-trash\"></span></button>";
+
         $htmlCode = "<div class=\"row\">\n";
-        $htmlCode .= "\t<div class=\"col-md-12 spacer\">\n";
-        $htmlCode .= "\t\t<h1>Espace Commentaire :</h1>\n";
+        $htmlCode .= "\t<div class=\"col-md-4\">\n";
+        $htmlCode .= "\t\t<h1>Espace Commentaires :</h1>\n";
+        $htmlCode .= "\t</div>\n";
+        $htmlCode .= "\t<div class=\"col-md-4\">\n";
+        $htmlCode .= "<form action=\"?action=addComment\" method=\"post\">";
+        $htmlCode .= "\t<input type=\"hidden\" name=\"musicID\" value=\"$var\">";
+        $htmlCode .= "\t<button class=\"btn btn-lg\" type=\"submit\"><span class=\"glyphicon glyphicon-plus\"></span> Add a comment</button>";
+        $htmlCode .= "</form>";
         $htmlCode .= "\t</div>\n";
         $htmlCode .= "</div>\n";
 
 
         foreach($commentaires as $subCom) {
-            $htmlCode .= "<div class=\"row\">\n";
-            $htmlCode .= "\t<div class=\"col-md-4 spacer\">\n";
-            $htmlCode .= "\t\t<p>$subCom->text</p>\n";
-            $htmlCode .= "\t\t<p><span class=\"glyphicon glyphicon-user\"></span> Par : $subCom->idUser</p>\n";
-            $htmlCode .= "\t</div>\n";
-            $htmlCode .= "\t</div>\n";
+            $actions="";
+            $_user = "\t\t<span class=\"glyphicon glyphicon-user\"></span> By : $subCom->idUser\n";
+            $_date = "<span class=\"glyphicon glyphicon-time\"></span> Posted on : $subCom->date\n";
+            if($_SESSION['email']== $subCom->idUser || $_SESSION['role']=='admin'){
+                $actions = $base."<input type=\"hidden\" name=\"auteur\" value=\"$subCom->idUser\">\n</form>";
+            }
 
+            $htmlCode .= "<div class=\"panel panel-default\">\n";
+            $htmlCode .= "<div class=\"panel-body\">";
+            $htmlCode .= "\t\t<p>$subCom->text</p>\n";
+            $htmlCode .= "</div>";
+            $htmlCode .= "<div class=\"panel-footer\">";
+            $htmlCode .= "<div class=\"row\">";
+            $htmlCode .= "<div class='col-md-4'>$_user</div>\n<div class='col-md-4'>$_date</div>\n";
+            $htmlCode .= "<div class='col-md-4'><div class='pull-right'>$actions</div></div>\n";
+            $htmlCode .= "</div>";
+            $htmlCode .= "</div>";
+            $htmlCode .= "\t</div>\n";
 
         }
 
