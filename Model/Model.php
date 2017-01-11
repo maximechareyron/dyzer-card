@@ -122,7 +122,7 @@ class Model
         if (!empty($res)) {
             $tab = array();
             foreach ($res as $l) {
-                array_push($tab, new Commentaire($l['idmusique'], $l['iduser'], $l['date'], $l['text']));
+                array_push($tab, new Commentaire($l['idmusique'], $l['iduser'], $l['datemodif'], $l['text']));
             }
             return $tab;
         }
@@ -139,8 +139,14 @@ class Model
     {
         $gw = new CommentGateway(Config::createConnection());
         return $gw->addComment($musicID, $iduser, $text);
-
     }
+
+    public static function removeComment($author, $music_id, $date)
+    {
+        $gw = new CommentGateway(Config::createConnection());
+        return $gw->removeComment($author, $music_id, $date);
+    }
+
 }
 
 ?>

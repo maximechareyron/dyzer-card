@@ -25,12 +25,11 @@ class FrontController
     function __construct()
     {
         try {
-            // L'utilisateur est il identifié ?
+            // L'utilisateur est il identifié ? on restaure la session :
             $sess = SessionHandler::getInstance();
 
             // Récupération de l'action
             $action = Sanitize::sanitizeItem($_REQUEST['action'], "string");
-
             // On distingue des cas d'utilisation, suivant l'action
             switch ($action) {
                 // 1) actions accessibles à tout le monde
@@ -72,7 +71,7 @@ class FrontController
                     break;
                 // 3. b) concernant les commentaires :
                 case 'deleteComment': // Supprimer un commentaire
-                    $adminCtrl = new ControleurAdmin($action);
+                    ControlAdmin::deleteComment();
                     break;
                 // 4) actions accessibles aux administrateurs et aux utilisateurs authentifiés
                 case 'detailTitre': // Afficher le détail d'un titre

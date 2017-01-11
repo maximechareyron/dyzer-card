@@ -137,7 +137,6 @@ class ControlAdmin
 
         // On copie la couverture d'album dans son répertoire en testant:
         if (!move_uploaded_file($filename, Music::getFullPathCover($idAlbum))) {
-            echo "ECHO UPLOAD";
             // Pour que la copie fonctionne, il faut que apache ait les droits d'écriture sur le répertoire...
             $dataError['InternalError'] = "Problem encountered while copying files. Please try again.";
         }
@@ -189,8 +188,55 @@ class ControlAdmin
         }
         FrontController::Reinit();
         return;
+    }
 
 
+    public static function deleteComment(){
+        global $dataError;
+        $s = SessionHandler::getInstance();
+        if ($s->role != 'admin') {
+            require(Config::getVues()['pageAuth']);
+            return;
+        }
+
+        if (isset($_POST['musicID'])) {
+            if (!Validation::validateItem($_POST['musicID'], "int")) {
+                $dataError['InvalidMusicID'] = "The music ID must be a number.";
+            } else {
+                $musicID = Sanitize::sanitizeItem($_POST['musicID'], "int");
+            }
+        } else{
+            $dataError['missingMusicID']="You need to pick a song to delete";
+        }
+
+        if (isset($_POST['author'])) {
+            $author=Sanitize::sanitizeItem($_POST['author'], "string");
+        }else{
+            $dataError['missingAuthor'] = "You need to specify the author of the comment";
+        }
+
+        if (isset($_POST['dateComment'])) {
+            $date=Sanitize::sanitizeItem($_POST['dateComment'], "string");
+            if(strlen($date)!=19){
+                $dataError['InvalidDate']="The specified date is invalid : $date (too short)";
+            }
+        }else{
+            $dataError['missingDate']= "You need to specify the publication date of the comment";
+        }
+
+        if (!empty($dataError)) {
+            require Config::getVuesErreur()['Default'];
+            return;
+        }
+
+        Model::removeComment($author, $musicID, $date);
+        if(!empty($dataError)){
+            require Config::getVuesErreur()['Default'];
+            return;
+        }
+
+        FrontController::Reinit();
+        return;
     }
 
 }

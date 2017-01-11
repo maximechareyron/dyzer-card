@@ -55,6 +55,26 @@ class CommentGateway
             return $res;
         }
     }
+
+    public function removeComment($author, $music_id, $date)
+    {
+        global $dataError;
+        $query = 'DELETE FROM comment WHERE idmusique= :music_id AND datemodif=:date_comment AND iduser=:auteur';
+        $tab = array(
+            ':music_id' => array($music_id, \PDO::PARAM_INT),
+            ':auteur' => array($author, \PDO::PARAM_STR),
+            ':date_comment' => array($date, \PDO::PARAM_STR)
+        );
+        try {
+            $res = $this->dbcon->prepareAndExecuteQuery($query, $tab);
+        } catch (\PDOException $e) {
+            $dataError['db'] = $e->getMessage();
+        }
+        if (!$res) {
+            $dataError['persistance'] = "Comment couldn't not be deleted from the database" . " Music ID or User or Comment may not exist.";
+        }
+        return $res;
+    }
 }
 
 ?>

@@ -217,7 +217,8 @@ class VueHtmlUtils
             $_user = "\t\t<span class=\"glyphicon glyphicon-user\"></span> By : $subCom->idUser\n";
             $_date = "<span class=\"glyphicon glyphicon-time\"></span> Posted on : $subCom->date\n";
             if ($_SESSION['email'] == $subCom->idUser || $_SESSION['role'] == 'admin') {
-                $actions = $base . "<input type=\"hidden\" name=\"auteur\" value=\"$subCom->idUser\">\n</form>";
+                $actions = $base . "<input type=\"hidden\" name=\"dateComment\" value=\"$subCom->date\">\n";
+                $actions = $actions . "<input type=\"hidden\" name=\"author\" value=\"$subCom->idUser\">\n</form>";
             }
 
             $htmlCode .= "<div class=\"panel panel-default\">\n";
