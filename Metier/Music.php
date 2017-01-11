@@ -3,6 +3,7 @@
 namespace DyzerCard\Metier;
 
 use DyzerCard\Config\Config;
+use DyzerCard\Model\Model;
 
 class Music
 {
@@ -17,19 +18,20 @@ class Music
     public $coverPath;
     public $musicPath;
 
-    public function __construct($musicID, $title, $artist, $year, $nbLike, $nbNLike, $albumID, $dateOnline)
+    public function __construct($musicID, $title, $artist, $year, $albumID, $dateOnline)
     {
         $this->idMusique = $musicID;
         $this->titre = $title;
         $this->artiste = $artist;
         $this->annee = $year;
-        $this->avisfav = $nbLike;
-        $this->avisdefav = $nbNLike;
         $this->album_id = $albumID;
         if ($dateOnline != "") {
             $d = date_parse($dateOnline);
             $this->dateMaj = $d['year'] . "-" . $d['month'] . "-" . $d['day'];
         }
+
+        $this->avisfav=Model::getAllLikes($this->idMusique)[0]["COUNT(*)"];
+        $this->avisdefav=Model::getAllNlikes($this->idMusique)[0]["COUNT(*)"];
 
 
         if ($musicID != "") {

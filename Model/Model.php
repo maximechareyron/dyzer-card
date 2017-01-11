@@ -10,6 +10,7 @@ use DyzerCard\Metier\Commentaire;
 use DyzerCard\Metier\Music;
 use DyzerCard\Persistance\DAL\AlbumGateway;
 use DyzerCard\Persistance\DAL\CommentGateway;
+use DyzerCard\Persistance\DAL\LikeGateway;
 use DyzerCard\Persistance\DAL\MusicGateway;
 
 class Model
@@ -28,7 +29,7 @@ class Model
         }
         $tab = array();
         foreach ($musiques as $l) {
-            array_push($tab, new Music($l['idmusique'], $l['titre'], $l['artiste'], $l['annee'], $l['avisfav'], $l['avisdefav'], $l['album_id'], $l['datemaj']));
+            array_push($tab, new Music($l['idmusique'], $l['titre'], $l['artiste'], $l['annee'], $l['album_id'], $l['datemaj']));
         }
         return $tab;
     }
@@ -36,7 +37,7 @@ class Model
     public static function getTopTen()
     {
         $gw = new MusicGateway(Config::createConnection());
-        $musiques = $gw->getAllTitlesByLike();
+        $musiques = $gw->getAllTitles();
 
         if (empty($musiques)) {
             return false;
@@ -44,7 +45,7 @@ class Model
         $tab = array();
         $i = 0;
         foreach ($musiques as $l) {
-            array_push($tab, new Music($l['idmusique'], $l['titre'], $l['artiste'], $l['annee'], $l['avisfav'], $l['avisdefav'], $l['album_id'], $l['datemaj']));
+            array_push($tab, new Music($l['idmusique'], $l['titre'], $l['artiste'], $l['annee'], $l['album_id'], $l['datemaj']));
             $i++;
             if ($i == 10) break;
         }
@@ -118,7 +119,7 @@ class Model
             return false;
         }
 
-        return new Music($res['idmusique'], $res['titre'], $res['artiste'], $res['annee'], $res['avisfav'], $res['avisdefav'], $res['album_id'], $res['datemaj']);
+        return new Music($res['idmusique'], $res['titre'], $res['artiste'], $res['annee'], $res['album_id'], $res['datemaj']);
     }
 
     public static function getCommentMusic($musicID)
@@ -156,14 +157,19 @@ class Model
     public static function addLikeTitle($musicID, $author)
     {
         $gw = new LikeGateway(Config::createConnection());
-        if (!empty($res)) {
-            $tab = array();
-            foreach ($res as $l) {
-                array_push($tab, new Commentaire($l['idmusique'], $l['iduser'], $l['datemodif'], $l['content']));
-            }
-            return $tab;
-        }
-        return $res;
+        return $gw->addLike($musicID, $author);
+    }
+
+    public static function getAllLikes($musicID){
+        $gw = new LikeGateway(Config::createConnection());
+        return $gw->getLikes($musicID);
+
+    }
+
+    public static function getAllNlikes($musicID){
+        $gw = new LikeGateway(Config::createConnection());
+        return $gw->getNLikes($musicID);
+
     }
 
 }

@@ -87,6 +87,17 @@ class ControlVisitorAuth
         ControlVisitor::afficherDetailTitre();
     }
 
+    public static function configAccount()
+    {
+        global $dataError;
+        $s = SessionHandler::getInstance();
+        if ($s->role != 'visitor') {
+            $dataError['UnreachablePage'] = "You do not have access to this page";
+            require(Config::getVuesErreur()['default']);
+            return;
+        }
+        require(Config::getVues()['configAccount']);
+    }
 
     public static function deleteComment(){
         global $dataError;
@@ -236,32 +247,29 @@ class ControlVisitorAuth
         $s = SessionHandler::getInstance();
         if ($s->role != 'visitor' && $s->role != 'admin') {
             $dataError['UnreachablePage'] = "You do not have access to this page";
-            require(Config::getVues()['pageAuth']);
+            $formToDisplay='authentication';
+            require(Config::getVues()['formView']);
             return;
         }
-        if(isset($_GET['musicID']))
+
+        var_dump($_POST);
+        if(isset($_POST['musicID']))
         {
-            if (!Validation::validateItem($_GET['musicID'], "int")) {
+            if (!Validation::validateItem($_POST['musicID'], "int")) {
                 $dataError['InvalidMusicID'] = "The music ID must be a number.";
             } else {
                 $musicID = Sanitize::sanitizeItem($_POST['musicID'], "int");
             }
-
         } else{
-            $dataError['missingMusicID']="You need to pick a song to delete";
-        }
-        if (isset($_SESSION['email'])) {
-            $author=Sanitize::sanitizeItem($_SESSION['email'], "string");
-        }else {
-            $dataError['missingAuthor'] = "You need to specify the author of this like";
+            $dataError['missingMusicID']="You need to pick a song to like";
         }
 
         if(!empty($dataError)){
             require(Config::getVuesErreur()['default']);
             return;
         }
-
-        Model::addLikeTitle($musicID, $author);
+        echo "ok";
+        Model::addLikeTitle($musicID, $s->email);
 
         if(!empty($dataError)){
             require Config::getVuesErreur()['default'];

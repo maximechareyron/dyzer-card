@@ -91,7 +91,7 @@ class ValidationRequest
         if (!empty($dataError)) {
             return false;
         }
-        return new Music("", $title, $artist, $year, 0, 0, $albumID, "");
+        return new Music("", $title, $artist, $year, $albumID, "");
     }
 }
 

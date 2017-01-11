@@ -157,7 +157,8 @@ class VueHtmlUtils
         $htmlCode .= "\t\t<p>Year : $musique->annee</p>\n";
         $htmlCode .= "\t\t<p>\n";
         $htmlCode .= "\t\t\t<form action=\"?action=like\" method=\"post\">\n";
-        $htmlCode .= "\t\t\t\t<button id=\"buttonLike\" type=\"submit\" href=\"?action=Like\" class=\"btn btn-default\">\n";
+        $htmlCode .= "\t<input type=\"hidden\" name=\"musicID\" value='$musique->idMusique'>";
+        $htmlCode .= "\t\t\t\t<button id=\"buttonLike\" type=\"submit\" class=\"btn btn-default\">\n";
         $htmlCode .= "\t\t\t\t\t<span class=\"glyphicon glyphicon-thumbs-up\"></span>\n";
         $htmlCode .= "\t\t\t\t\tLike \n";
         $htmlCode .= "\t\t\t\t\t<span class=\"label label-success\">$musique->avisfav</span>\n";
