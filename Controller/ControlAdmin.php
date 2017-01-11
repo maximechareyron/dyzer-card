@@ -185,10 +185,18 @@ class ControlAdmin
         if (!empty($dataError)) {
             require Config::getVuesErreur()['default'];
             return;
-        }else{
-            FrontController::Reinit();
+        }
+
+        $res=unlink(Music::getFullPathAudio($musicID));
+        if(!$res){
+            $dataError['rmError']="Could not delete the audio file for music $musicID";
+            require Config::getVuesErreur()['default'];
             return;
         }
+        FrontController::Reinit();
+        return;
+
+
     }
 
 }
