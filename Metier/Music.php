@@ -30,8 +30,8 @@ class Music
             $this->dateMaj = $d['year'] . "-" . $d['month'] . "-" . $d['day'];
         }
 
-        $this->avisfav=Model::getAllLikes($this->idMusique)[0]["COUNT(*)"];
-        $this->avisdefav=Model::getAllNlikes($this->idMusique)[0]["COUNT(*)"];
+        $this->avisfav = Model::getAllLikes($this->idMusique)[0]["COUNT(*)"];
+        $this->avisdefav = Model::getAllNlikes($this->idMusique)[0]["COUNT(*)"];
 
 
         if ($musicID != "") {

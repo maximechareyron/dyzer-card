@@ -215,7 +215,7 @@ class VueHtmlUtils
         $htmlCode .= "\t</div>\n";
         $htmlCode .= "\t<div class=\"col-md-4\">\n";
         $htmlCode .= "<form action=\"?action=addComment\" method=\"post\">";
-        $htmlCode .= "\t<input type=\"hidden\" name=\"musicID\" value=\"".$_GET['musicID']."\">";
+        $htmlCode .= "\t<input type=\"hidden\" name=\"musicID\" value=\"" . $_GET['musicID'] . "\">";
         $htmlCode .= "\t<button class=\"btn btn-lg btn-default\" type=\"submit\"><span class=\"glyphicon glyphicon-plus\"></span> Add a comment</button>";
         $htmlCode .= "</form>";
         $htmlCode .= "\t</div>\n";
@@ -244,7 +244,7 @@ class VueHtmlUtils
             $htmlCode .= "\t</div>\n";
         }
 
-        if(empty($commentaires)){
+        if (empty($commentaires)) {
             $htmlCode .= "<div class=\"panel panel-default\">\n";
             $htmlCode .= "<div class=\"panel-body\">";
             $htmlCode .= "\t\t<p>There is no comment yet. Be the first to post !</p>\n";

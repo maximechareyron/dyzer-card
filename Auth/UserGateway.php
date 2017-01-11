@@ -69,19 +69,20 @@ class UserGateway
      * @param $login string login de l'utilisateur
      * @return bool
      */
-    public function deleteUser($login){
+    public function deleteUser($login)
+    {
         global $dataError;
         $query = 'DELETE FROM admin WHERE iduser=:login';
         $tab = array(
             ':login' => array($login, \PDO::PARAM_STR)
         );
-        try{
+        try {
             $res = $this->dbcon->prepareAndExecuteQuery($query, $tab);
-        } catch (\PDOException $e){
+        } catch (\PDOException $e) {
             $dataError['db'] = $e->getMessage();
         }
-        if(!$res){
-            $dataError['persistance']= "Query could not be executed. Login may not exist in database.";
+        if (!$res) {
+            $dataError['persistance'] = "Query could not be executed. Login may not exist in database.";
         }
         return $res;
     }

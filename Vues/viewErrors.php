@@ -5,9 +5,9 @@
 
 
     <!-- blockblack -->
-        <!--Errors display starts-->
-        <?php require 'displayErrors.php'; ?>
-        <!--Errors display Ends-->
+    <!--Errors display starts-->
+    <?php require 'displayErrors.php'; ?>
+    <!--Errors display Ends-->
 
     <!-- blockblack -->
 </div>

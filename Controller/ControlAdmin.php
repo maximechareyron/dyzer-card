@@ -22,7 +22,7 @@ class ControlAdmin
 
         //Vérification du rôle
         if ($s->role != 'admin') {
-            $formToDisplay='authentication';
+            $formToDisplay = 'authentication';
             require(Config::getVues()['formView']);
             return;
         }
@@ -57,7 +57,7 @@ class ControlAdmin
         global $dataError;
         $s = SessionHandler::getInstance();
         if ($s->role != 'admin') {
-            $formToDisplay='authentication';
+            $formToDisplay = 'authentication';
             require(Config::getVues()['formView']);
             return;
         }
@@ -101,7 +101,7 @@ class ControlAdmin
         global $dataError;
         $s = SessionHandler::getInstance();
         if ($s->role != 'admin') {
-            $formToDisplay='authentication';
+            $formToDisplay = 'authentication';
             require(Config::getVues()['formView']);
             return;
         }
@@ -168,7 +168,7 @@ class ControlAdmin
         global $dataError;
         $s = SessionHandler::getInstance();
         if ($s->role != 'admin') {
-            $formToDisplay='authentication';
+            $formToDisplay = 'authentication';
             require(Config::getVues()['formView']);
             return;
         }

@@ -10,7 +10,9 @@
                 <div class="row">
                     <div class="col-sm-4 col-sm-offset-4 ">
                         <form action="?action=deleteUserAccount" method="post" enctype="multipart/form-data">
-                            <button class="btn btn-danger bgcolor" type="submit"><span class="glyphicon glyphicon-trash"></span> Delete Account</button>
+                            <button class="btn btn-danger bgcolor" type="submit"><span
+                                    class="glyphicon glyphicon-trash"></span> Delete Account
+                            </button>
                         </form>
                     </div>
                 </div>

@@ -27,7 +27,7 @@
             require 'forms/formRegister.php';
             break;
         default:
-            $dataError['WrongPhpCall']="Invalid argument : $formToDisplay";
+            $dataError['WrongPhpCall'] = "Invalid argument : $formToDisplay";
             require 'displayErrors.php';
     }
     ?>

@@ -43,7 +43,8 @@ class ModelUser
         return $gw->createUser($inputArray);
     }
 
-    public static function deleteUser($login){
+    public static function deleteUser($login)
+    {
         $gw = new UserGateway(Config::createConnection());
         return $gw->deleteUser($login);
     }

@@ -16,13 +16,13 @@ class ControlVisitor
 {
     public static function register()
     { // Vue d'inscription
-        $formToDisplay='registration';
+        $formToDisplay = 'registration';
         require(Config::getVues()['formView']);
     }
 
     public static function authenticate()
     { // Vue d'authentification
-        $formToDisplay='authentication';
+        $formToDisplay = 'authentication';
         require(Config::getVues()['formView']);
     }
 
@@ -41,7 +41,7 @@ class ControlVisitor
             );
             ModelUser::createUser($dataUser);
             if (!empty($dataError)) {
-                $formToDisplay='registration';
+                $formToDisplay = 'registration';
                 require(Config::getVues()['formView']);
                 return;
             }
@@ -53,7 +53,7 @@ class ControlVisitor
             FrontController::Reinit();
             return;
         } // E-mail & mot de passe invalides, on affiche les erreurs, puis on affiche le formulaire
-        $formToDisplay='registration';
+        $formToDisplay = 'registration';
         require(Config::getVues()['formView']);
     }
 
@@ -80,7 +80,7 @@ class ControlVisitor
             FrontController::Reinit();
         } else {
             // On affiche la page d'authentification, avec les erreurs.
-            $formToDisplay='authentication';
+            $formToDisplay = 'authentication';
             require(Config::getVues()['formView']);
         }
     }
@@ -95,7 +95,7 @@ class ControlVisitor
             $music = Model::getMusicByID($musicID);
             $comments = Model::getCommentMusic($musicID);
 
-            if(!empty($dataError)){
+            if (!empty($dataError)) {
                 require(Config::getVuesErreur()['default']);
                 return;
             }

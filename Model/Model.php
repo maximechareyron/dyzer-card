@@ -160,13 +160,15 @@ class Model
         return $gw->addLike($musicID, $author);
     }
 
-    public static function getAllLikes($musicID){
+    public static function getAllLikes($musicID)
+    {
         $gw = new LikeGateway(Config::createConnection());
         return $gw->getLikes($musicID);
 
     }
 
-    public static function getAllNlikes($musicID){
+    public static function getAllNlikes($musicID)
+    {
         $gw = new LikeGateway(Config::createConnection());
         return $gw->getNLikes($musicID);
 

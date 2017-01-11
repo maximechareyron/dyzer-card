@@ -43,11 +43,7 @@ document.getElementById("signin").onclick = function () {
 };
 
 document.getElementById("index").onclick = function () {
-    location.href = "vueAcceuil.php";
-};
-
-document.getElementById("signup").onclick = function () {
-    location.href = "vueFormRegister.php";
+    location.href = "home.php";
 };
 
 document.getElementById("saisieTitre").onclick = function () {

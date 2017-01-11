@@ -36,7 +36,7 @@ class Authentication
 
     public static function disconnection()
     {
-        $s=SessionHandler::getInstance();
+        $s = SessionHandler::getInstance();
         $s->destroy();
         setcookie("PHPSESSID", "", time() - 1);
     }
