@@ -62,7 +62,6 @@ class ControlAdmin
         }
         $res=ValidationRequest::validationTitle($albumID);
         if(!$res){
-            var_dump($res);
             $formToDisplay='add_title';
             require(Config::getVues()["addTitle"]);
             return;
@@ -141,7 +140,6 @@ class ControlAdmin
         }
 
         // On copie la couverture d'album dans son répertoire en testant:
-        var_dump(Music::getFullPathCover($idAlbum));
         if (!move_uploaded_file($filename, Music::getFullPathCover($idAlbum))) {
             echo "ECHO UPLOAD";
             // Pour que la copie fonctionne, il faut que apache ait les droits d'écriture sur le répertoire...

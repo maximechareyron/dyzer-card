@@ -38,7 +38,6 @@ class ControlVisitor
                 'role' => 'visitor'
             );
             ModelUser::createUser($dataError, $dataUser);
-            var_dump($dataError);
             // Si la requête a fonctionné :
             if (empty($dataError)) {
                 $role = Authentication::checkAndInitiateSession($email, $password, $dataError);
@@ -92,12 +91,11 @@ class ControlVisitor
         global $dataError;
         $s=SessionHandler::getInstance();
         $role=$s->role;
-        var_dump($role);
         if(Validation::validateItem($_GET['musicID'], "int"))
         {
-            $titleID=Sanitize::sanitizeItem($_GET['musicID'], "int");
-            $music= Model::getMusicByID($_GET['musicID']);
-            $comments = Model::getCommentMusic($_GET['musicID']);
+            $musicID=Sanitize::sanitizeItem($_GET['musicID'], "int");
+            $music= Model::getMusicByID($musicID);
+            $comments = Model::getCommentMusic($musicID);
             require(Config::getVues()["afficheMusique"]);
         } else{
             $dataError["InvalidMusicID"]="The requested MusicID is invalid.";
